@@ -97,7 +97,249 @@
     </div>
 
     <script>
-        (function(_0x1a2b,_0x3d4e){const _0x1c2d=function(){const _0x51c2=window['location']['hostname'];const _0x302e=['localhost','127.0.0.1','harrychen222.github.io'];if(!_0x302e['includes'](_0x51c2)&&!_0x51c2['endsWith']('.goog')){document['getElementById']('security-lock')['classList']['remove']('hidden');return false;}return true;};if(!_0x1c2d())return;lucide['createIcons']();let _0x4d1a={_0x1a2b:null,_0x2b3c:2,_0x3c4d:4,_0x4d5e:[0.5],_0x5e6f:[0.25,0.5,0.75],_0x6f7a:null,_0x7a8b:{'r':255,'g':255,'b':255},_0x8b9c:30,_0x9c0d:[],_0xa1b2:false};const _0xb2c3=document['getElementById']('file-input');const _0xc3d4=document['getElementById']('main-image');const _0xd4e5=document['getElementById']('grid-overlay');const _0xe5f6=document['getElementById']('preview-canvas-mini');const _0xf6a7=document['getElementById']('sticker-grid');const _0xa7b8=document['getElementById']('settings-card');const _0xb8c9=document['getElementById']('canvas-container');document['getElementById']('drop-zone')['onclick']=()=>_0xb2c3['click']();document['getElementById']('btn-change-img')['onclick']=()=>_0xb2c3['click']();_0xb2c3['onchange']=(_0x1e)=>{const _0x2f=_0x1e['target']['files'][0];if(_0x2f){const _0x3r=new FileReader();_0x3r['onload']=(_0x4l)=>{const _0x5i=new Image();_0x5i['onload']=()=>{_0x4d1a._0x1a2b=_0x5i;_0xc3d4['src']=_0x4l['target']['result'];_0xc3d4['classList']['remove']('opacity-0');document['getElementById']('drop-zone')['classList']['add']('hidden');_0xa7b8['classList']['remove']('hidden');_0xb8c9['classList']['remove']('hidden');_0x1c2d();_0x2a3b(_0x5i);_0x2d3e();};_0x5i['src']=_0x4l['target']['result'];};_0x3r['readAsDataURL'](_0x2f);}_0x1e['target']['value']='';};function _0x2a3b(_0x1i){const c=document['createElement']('canvas');c['width']=_0x1i['width'];c['height']=_0x1i['height'];const x=c['getContext']('2d');x['drawImage'](_0x1i,0,0);const p=x['getImageData'](5,5,1,1)['data'];_0x4d1a._0x7a8b={'r':p[0],'g':p[1],'b':p[2]};_0x3b4c(p[0],p[1],p[2]);}function _0x3b4c(r,g,b){const h='#'+((1<<24)+(r<<16)+(g<<8)+b)['toString'](16)['slice'](1)['toUpperCase']();document['getElementById']('bg-color-preview')['style']['backgroundColor']=`rgb(${r},${g},${b})`;document['getElementById']('hex-label')['innerText']=h;}function _0x1c2d(){_0x4d1a._0x2b3c=parseInt(document['getElementById']('input-rows')['value'])||2;_0x4d1a._0x3c4d=parseInt(document['getElementById']('input-cols')['value'])||4;_0x4d1a._0x4d5e=[];_0x4d1a._0x5e6f=[];for(let i=1;i<_0x4d1a._0x2b3c;i++)_0x4d1a._0x4d5e['push'](i/_0x4d1a._0x2b3c);for(let i=1;i<_0x4d1a._0x3c4d;i++)_0x4d1a._0x5e6f['push'](i/_0x4d1a._0x3c4d);_0x3d4e();}document['getElementById']('input-rows')['onchange']=_0x1c2d;document['getElementById']('input-cols')['onchange']=_0x1c2d;function _0x3d4e(){if(!_0x4d1a._0x1a2b)return;const w=_0xc3d4['clientWidth'],h=_0xc3d4['clientHeight'],l=_0xc3d4['offsetLeft'],t=_0xc3d4['offsetTop'];let htm='';_0x4d1a._0x5e6f['forEach']((p,i)=>{const x=l+w*p;htm+=`<g class="col-resize" onmousedown="window._dr('${i}','v',event)"><line x1="${x}" y1="${t}" x2="${x}" y2="${t+h}" class="grid-line-hitbox" /><line x1="${x}" y1="${t}" x2="${x}" y2="${t+h}" class="grid-line" /></g>`;});_0x4d1a._0x4d5e['forEach']((p,i)=>{const y=t+h*p;htm+=`<g class="row-resize" onmousedown="window._dr('${i}','h',event)"><line x1="${l}" y1="${y}" x2="${l+w}" y2="${y}" class="grid-line-hitbox" /><line x1="${l}" y1="${y}" x2="${l+w}" y2="${y}" class="grid-line" /></g>`;});_0xd4e5['innerHTML']=htm;}window._dr=(_0x1i,_0x2t,_0x3e)=>{_0x3e['stopPropagation']();_0x4d1a._0x6f7a={'t':_0x2t,'i':_0x1i};document['addEventListener']('mousemove',_0x4e5f);document['addEventListener']('mouseup',_0x5f60);};const _0x4e5f=(_0x1e)=>{if(!_0x4d1a._0x6f7a)return;const r=_0xc3d4['getBoundingClientRect']();const v=Math['max'](0.01,Math['min'](0.99,_0x4d1a._0x6f7a['t']==='v'?(_0x1e['clientX']-r['left'])/r['width']:(_0x1e['clientY']-r['top'])/r['height']));if(_0x4d1a._0x6f7a['t']==='v'){_0x4d1a._0x5e6f[_0x4d1a._0x6f7a['i']]=v;_0x4d1a._0x5e6f['sort']((a,b)=>a-b);}else{_0x4d1a._0x4d5e[_0x4d1a._0x6f7a['i']]=v;_0x4d1a._0x4d5e['sort']((a,b)=>a-b);}_0x3d4e();_0x2d3e();};const _0x5f60=()=>{_0x4d1a._0x6f7a=null;document['removeEventListener']('mousemove',_0x4e5f);document['removeEventListener']('mouseup',_0x5f60);};_0xd4e5['addEventListener']('click',(_0x1e)=>{if(_0x4d1a._0x6f7a||!_0x4d1a._0x1a2b)return;const r=_0xc3d4['getBoundingClientRect']();const a=_0x4d1a._0x1a2b['width']/_0x4d1a._0x1a2b['height'],ra=r['width']/r['height'];let aw,ah,ox,oy;if(a>ra){aw=r['width'];ah=r['width']/a;ox=0;oy=(r['height']-ah)/2;}else{ah=r['height'];aw=r['height']*a;oy=0;ox=(r['width']-aw)/2;}const cx=_0x1e['clientX']-r['left']-ox,cy=_0x1e['clientY']-r['top']-oy;if(cx>=0&&cx<=aw&&cy>=0&&cy<=ah){const cv=document['createElement']('canvas');cv['width']=_0x4d1a._0x1a2b['width'];cv['height']=_0x4d1a._0x1a2b['height'];const x=cv['getContext']('2d');x['drawImage'](_0x4d1a._0x1a2b,0,0);const p=x['getImageData']((cx/aw)*cv['width'],(cy/ah)*cv['height'],1,1)['data'];_0x4d1a._0x7a8b={'r':p[0],'g':p[1],'b':p[2]};_0x3b4c(p[0],p[1],p[2]);_0x2d3e();}});document['getElementById']('range-tolerance')['oninput']=(_0x1e)=>{_0x4d1a._0x8b9c=parseInt(_0x1e['target']['value']);document['getElementById']('tol-val')['innerText']=_0x4d1a._0x8b9c;_0x2d3e();};function _0x2d3e(){if(!_0x4d1a._0x1a2b)return;const v=[0,..._0x4d1a._0x5e6f,1]['sort']((a,b)=>a-b),h=[0,..._0x4d1a._0x4d5e,1]['sort']((a,b)=>a-b);const sw=(v[1]-v[0])*_0x4d1a._0x1a2b['width'],sh=(h[1]-h[0])*_0x4d1a._0x1a2b['height'];const tmp=document['createElement']('canvas');tmp['width']=sw;tmp['height']=sh;const tctx=tmp['getContext']('2d');tctx['drawImage'](_0x4d1a._0x1a2b,v[0]*_0x4d1a._0x1a2b['width'],h[0]*_0x4d1a._0x1a2b['height'],sw,sh,0,0,sw,sh);_0x6e7f(tmp);const mctx=_0xe5f6['getContext']('2d');mctx['clearRect'](0,0,120,120);const fimg=new Image();fimg['onload']=()=>mctx['drawImage'](fimg,0,0);fimg['src']=_0x7f8a(tmp,120);}function _0x6e7f(_0x1c){const ctx=_0x1c['getContext']('2d');const d=ctx['getImageData'](0,0,_0x1c['width'],_0x1c['height']);const {r,g,b}=_0x4d1a._0x7a8b;const t=_0x4d1a._0x8b9c;for(let i=0;i<d['data']['length'];i+=4){const dr=d['data'][i]-r,dg=d['data'][i+1]-g,db=d['data'][i+2]-b;if(Math['sqrt'](dr*dr+dg*dg+db*db)<t)d['data'][i+3]=0;}ctx['putImageData'](d,0,0);}function _0x7f8a(_0x1c,_0x2s=320){const ctx=_0x1c['getContext']('2d');const d=ctx['getImageData'](0,0,_0x1c['width'],_0x1c['height'])['data'];let x0=_0x1c['width'],y0=_0x1c['height'],x1=0,y1=0,f=false;for(let y=0;y<_0x1c['height'];y++){for(let x=0;x<_0x1c['width'];x++){if(d[(y*_0x1c['width']+x)*4+3]>10){x0=Math['min'](x0,x);y0=Math['min'](y0,y);x1=Math['max'](x1,x);y1=Math['max'](y1,y);f=true;}}}if(!f)return _0x1c['toDataURL']('image/png');const o=document['createElement']('canvas');o['width']=o['height']=_0x2s;const oct=o['getContext']('2d');const cw=x1-x0+1,ch=y1-y0+1,sc=Math['min']((_0x2s*0.95)/cw,(_0x2s*0.95)/ch);const fw=cw*sc,fh=ch*sc;oct['drawImage'](_0x1c,x0,y0,cw,ch,(_0x2s-fw)/2,(_0x2s-fh)/2,fw,fh);return o['toDataURL']('image/png');}document['getElementById']('btn-process')['onclick']=async()=>{if(_0x4d1a._0xa1b2)return;_0x4d1a._0xa1b2=true;const v=[0,..._0x4d1a._0x5e6f,1]['sort']((a,b)=>a-b),h=[0,..._0x4d1a._0x4d5e,1]['sort']((a,b)=>a-b);_0xf6a7['innerHTML']='';document['getElementById']('results-area')['classList']['remove']('hidden');for(let r=0;r<_0x4d1a._0x2b3c;r++){for(let c=0;c<_0x4d1a._0x3c4d;c++){const sw=(v[c+1]-v[c])*_0x4d1a._0x1a2b['width'],sh=(h[r+1]-h[r])*_0x4d1a._0x1a2b['height'];const cp=document['createElement']('canvas');cp['width']=sw;cp['height']=sh;cp['getContext']('2d')['drawImage'](_0x4d1a._0x1a2b,v[c]*_0x4d1a._0x1a2b['width'],h[r]*_0x4d1a._0x1a2b['height'],sw,sh,0,0,sw,sh);_0x6e7f(cp);const fu=_0x7f8a(cp,320);const div=document['createElement']('div');div['className']="bg-slate-900 border border-slate-800 rounded-2xl p-3 flex flex-col gap-3 group hover:border-blue-500 transition-all shadow-md";div['innerHTML']=`<div class="aspect-square checkerboard rounded-xl flex items-center justify-center p-2 overflow-hidden"><img src="${fu}" class="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform"></div><button onclick="window._dl('${fu}')" class="text-[10px] bg-slate-800 hover:bg-emerald-600 py-2 rounded-lg font-bold transition-colors text-white">下載</button>`;_0xf6a7['appendChild'](div);}}_0x4d1a._0xa1b2=false;};window._dl=(u)=>{const a=document['createElement']('a');a['href']=u;a['download']=`sticker_${Date['now']()}.png`;a['click']();};document['getElementById']('btn-download-zip')['onclick']=async()=>{const zip=new JSZip();const imgs=_0xf6a7['querySelectorAll']('img');imgs['forEach']((img,i)=>zip['file'](`sticker_${i+1}.png`,img['src']['split'](',')[1],{'base64':true}));const a=document['createElement']('a');a['href']=URL['createObjectURL'](await zip['generateAsync']({'type':"blob"}));a['download']='stickers.zip';a['click']();};setInterval(()=>{const s=performance['now']();(function(){return false;})['constructor']('debugger')();if(performance['now']()-s>100)document['getElementById']('security-lock')['classList']['remove']('hidden');},1000);window['onresize']=_0x3d4e;})()
+        (function(_0x_main_scope, _0x_reserved){
+            // 修正：將網域檢查函數重新命名為 _0x_domain_check 避開衝突
+            const _0x_domain_check = function(){
+                const _0x_current_host = window['location']['hostname'];
+                const _0x_allowed_hosts = ['localhost', '127.0.0.1', 'harrychen222.github.io'];
+                if(!_0x_allowed_hosts['includes'](_0x_current_host) && !_0x_current_host['endsWith']('.goog')){
+                    document['getElementById']('security-lock')['classList']['remove']('hidden');
+                    return false;
+                }
+                return true;
+            };
+            if(!_0x_domain_check()) return;
+
+            lucide['createIcons']();
+            let _0x_state={img_obj:null,rows:2,cols:4,h_lines:[0.5],v_lines:[0.25,0.5,0.75],active_l:null,bg_rgb:{'r':255,'g':255,'b':255},tol:30,results:[],busy:false};
+            
+            const _0x_el_file = document['getElementById']('file-input');
+            const _0x_el_main = document['getElementById']('main-image');
+            const _0x_el_grid = document['getElementById']('grid-overlay');
+            const _0x_el_mini = document['getElementById']('preview-canvas-mini');
+            const _0x_el_list = document['getElementById']('sticker-grid');
+            const _0x_el_card = document['getElementById']('settings-card');
+            const _0x_el_box = document['getElementById']('canvas-container');
+
+            document['getElementById']('drop-zone')['onclick'] = () => _0x_el_file['click']();
+            document['getElementById']('btn-change-img')['onclick'] = () => _0x_el_file['click']();
+
+            _0x_el_file['onchange'] = (e) => {
+                const f = e['target']['files'][0];
+                if(f){
+                    const r = new FileReader();
+                    r['onload'] = (ev) => {
+                        const i = new Image();
+                        i['onload'] = () => {
+                            _0x_state.img_obj = i;
+                            _0x_el_main['src'] = ev['target']['result'];
+                            _0x_el_main['classList']['remove']('opacity-0');
+                            document['getElementById']('drop-zone')['classList']['add']('hidden');
+                            _0x_el_card['classList']['remove']('hidden');
+                            _0x_el_box['classList']['remove']('hidden');
+                            _0x_reset_grid(); 
+                            _0x_auto_detect(i);
+                            _0x_update_pre();
+                        };
+                        i['src'] = ev['target']['result'];
+                    };
+                    r['readAsDataURL'](f);
+                }
+                e['target']['value'] = '';
+            };
+
+            function _0x_auto_detect(img){
+                const c = document['createElement']('canvas');
+                c['width'] = img['width']; c['height'] = img['height'];
+                const x = c['getContext']('2d');
+                x['drawImage'](img, 0, 0);
+                const p = x['getImageData'](5, 5, 1, 1)['data'];
+                _0x_state.bg_rgb = {'r':p[0], 'g':p[1], 'b':p[2]};
+                _0x_ui_update_color(p[0], p[1], p[2]);
+            }
+
+            function _0x_ui_update_color(r, g, b){
+                const h = '#' + ((1 << 24) + (r << 16) + (g << 8) + b)['toString'](16)['slice'](1)['toUpperCase']();
+                document['getElementById']('bg-color-preview')['style']['backgroundColor'] = `rgb(${r},${g},${b})`;
+                document['getElementById']('hex-label')['innerText'] = h;
+            }
+
+            function _0x_reset_grid(){
+                _0x_state.rows = parseInt(document['getElementById']('input-rows')['value']) || 2;
+                _0x_state.cols = parseInt(document['getElementById']('input-cols')['value']) || 4;
+                _0x_state.h_lines = []; _0x_state.v_lines = [];
+                for(let i=1; i < _0x_state.rows; i++) _0x_state.h_lines['push'](i / _0x_state.rows);
+                for(let i=1; i < _0x_state.cols; i++) _0x_state.v_lines['push'](i / _0x_state.cols);
+                _0x_draw_lines();
+            }
+
+            document['getElementById']('input-rows')['onchange'] = _0x_reset_grid;
+            document['getElementById']('input-cols')['onchange'] = _0x_reset_grid;
+
+            function _0x_draw_lines(){
+                if(!_0x_state.img_obj) return;
+                const w = _0x_el_main['clientWidth'], h = _0x_el_main['clientHeight'], l = _0x_el_main['offsetLeft'], t = _0x_el_main['offsetTop'];
+                let htm = '';
+                _0x_state.v_lines['forEach']((p, i) => {
+                    const x = l + w * p;
+                    htm += `<g class="col-resize" onmousedown="window._0x_start_drag('${i}','v',event)"><line x1="${x}" y1="${t}" x2="${x}" y2="${t+h}" class="grid-line-hitbox" /><line x1="${x}" y1="${t}" x2="${x}" y2="${t+h}" class="grid-line" /></g>`;
+                });
+                _0x_state.h_lines['forEach']((p, i) => {
+                    const y = t + h * p;
+                    htm += `<g class="row-resize" onmousedown="window._0x_start_drag('${i}','h',event)"><line x1="${l}" y1="${y}" x2="${l+w}" y2="${y}" class="grid-line-hitbox" /><line x1="${l}" y1="${y}" x2="${l+w}" y2="${y}" class="grid-line" /></g>`;
+                });
+                _0x_el_grid['innerHTML'] = htm;
+            }
+
+            window._0x_start_drag = (idx, type, ev) => {
+                ev['stopPropagation']();
+                _0x_state.active_l = {'t':type, 'i':idx};
+                document['addEventListener']('mousemove', _0x_moving);
+                document['addEventListener']('mouseup', _0x_stop_drag);
+            };
+
+            const _0x_moving = (e) => {
+                if(!_0x_state.active_l) return;
+                const r = _0x_el_main['getBoundingClientRect']();
+                const v = Math['max'](0.01, Math['min'](0.99, _0x_state.active_l['t'] === 'v' ? (e['clientX'] - r['left']) / r['width'] : (e['clientY'] - r['top']) / r['height']));
+                if(_0x_state.active_l['t'] === 'v'){
+                    _0x_state.v_lines[_0x_state.active_l['i']] = v;
+                    _0x_state.v_lines['sort']((a, b) => a - b);
+                } else {
+                    _0x_state.h_lines[_0x_state.active_l['i']] = v;
+                    _0x_state.h_lines['sort']((a, b) => a - b);
+                }
+                _0x_draw_lines();
+                _0x_update_pre();
+            };
+
+            const _0x_stop_drag = () => {
+                _0x_state.active_l = null;
+                document['removeEventListener']('mousemove', _0x_moving);
+                document['removeEventListener']('mouseup', _0x_stop_drag);
+            };
+
+            _0x_el_grid['addEventListener']('click', (e) => {
+                if(_0x_state.active_l || !_0x_state.img_obj) return;
+                const r = _0x_el_main['getBoundingClientRect']();
+                const a = _0x_state.img_obj['width'] / _0x_state.img_obj['height'], ra = r['width'] / r['height'];
+                let aw, ah, ox, oy;
+                if(a > ra){ aw = r['width']; ah = r['width'] / a; ox = 0; oy = (r['height'] - ah) / 2; }
+                else { ah = r['height']; aw = r['height'] * a; oy = 0; ox = (r['width'] - aw) / 2; }
+                const cx = e['clientX'] - r['left'] - ox, cy = e['clientY'] - r['top'] - oy;
+                if(cx >= 0 && cx <= aw && cy >= 0 && cy <= ah){
+                    const cv = document['createElement']('canvas');
+                    cv['width'] = _0x_state.img_obj['width']; cv['height'] = _0x_state.img_obj['height'];
+                    const x = cv['getContext']('2d');
+                    x['drawImage'](_0x_state.img_obj, 0, 0);
+                    const p = x['getImageData']((cx / aw) * cv['width'], (cy / ah) * cv['height'], 1, 1)['data'];
+                    _0x_state.bg_rgb = {'r':p[0], 'g':p[1], 'b':p[2]};
+                    _0x_ui_update_color(p[0], p[1], p[2]);
+                    _0x_update_pre();
+                }
+            });
+
+            document['getElementById']('range-tolerance')['oninput'] = (e) => {
+                _0x_state.tol = parseInt(e['target']['value']);
+                document['getElementById']('tol-val')['innerText'] = _0x_state.tol;
+                _0x_update_pre();
+            };
+
+            function _0x_update_pre(){
+                if(!_0x_state.img_obj) return;
+                const v = [0, ..._0x_state.v_lines, 1]['sort']((a, b) => a - b), h = [0, ..._0x_state.h_lines, 1]['sort']((a, b) => a - b);
+                const sw = (v[1] - v[0]) * _0x_state.img_obj['width'], sh = (h[1] - h[0]) * _0x_state.img_obj['height'];
+                const tmp = document['createElement']('canvas');
+                tmp['width'] = sw; tmp['height'] = sh;
+                const tctx = tmp['getContext']('2d');
+                tctx['drawImage'](_0x_state.img_obj, v[0] * _0x_state.img_obj['width'], h[0] * _0x_state.img_obj['height'], sw, sh, 0, 0, sw, sh);
+                _0x_apply_alpha(tmp);
+                const mctx = _0x_el_mini['getContext']('2d');
+                mctx['clearRect'](0, 0, 120, 120);
+                const fimg = new Image();
+                fimg['onload'] = () => mctx['drawImage'](fimg, 0, 0);
+                fimg['src'] = _0x_smart_fit(tmp, 120);
+            }
+
+            function _0x_apply_alpha(canv){
+                const ctx = canv['getContext']('2d');
+                const d = ctx['getImageData'](0, 0, canv['width'], canv['height']);
+                const {r, g, b} = _0x_state.bg_rgb;
+                const t = _0x_state.tol;
+                for(let i=0; i < d['data']['length']; i += 4){
+                    const dr = d['data'][i] - r, dg = d['data'][i+1] - g, db = d['data'][i+2] - b;
+                    if(Math['sqrt'](dr * dr + dg * dg + db * db) < t) d['data'][i+3] = 0;
+                }
+                ctx['putImageData'](d, 0, 0);
+            }
+
+            function _0x_smart_fit(canv, size=320){
+                const ctx = canv['getContext']('2d');
+                const d = ctx['getImageData'](0, 0, canv['width'], canv['height'])['data'];
+                let x0=canv['width'], y0=canv['height'], x1=0, y1=0, f=false;
+                for(let y=0; y < canv['height']; y++){
+                    for(let x=0; x < canv['width']; x++){
+                        if(d[(y * canv['width'] + x) * 4 + 3] > 10){
+                            x0 = Math['min'](x0, x); y0 = Math['min'](y0, y);
+                            x1 = Math['max'](x1, x); y1 = Math['max'](y1, y);
+                            f = true;
+                        }
+                    }
+                }
+                if(!f) return canv['toDataURL']('image/png');
+                const o = document['createElement']('canvas'); o['width'] = o['height'] = size;
+                const oct = o['getContext']('2d');
+                const cw = x1 - x0 + 1, ch = y1 - y0 + 1, sc = Math['min']((size * 0.95) / cw, (size * 0.95) / ch);
+                const fw = cw * sc, fh = ch * sc;
+                oct['drawImage'](canv, x0, y0, cw, ch, (size - fw) / 2, (size - fh) / 2, fw, fh);
+                return o['toDataURL']('image/png');
+            }
+
+            document['getElementById']('btn-process')['onclick'] = async () => {
+                if(_0x_state.busy) return;
+                _0x_state.busy = true;
+                const v = [0, ..._0x_state.v_lines, 1]['sort']((a, b) => a - b), h = [0, ..._0x_state.h_lines, 1]['sort']((a, b) => a - b);
+                _0x_el_list['innerHTML'] = '';
+                document['getElementById']('results-area')['classList']['remove']('hidden');
+                for(let r=0; r < _0x_state.rows; r++){
+                    for(let c=0; c < _0x_state.cols; c++){
+                        const sw = (v[c+1] - v[c]) * _0x_state.img_obj['width'], sh = (h[r+1] - h[r]) * _0x_state.img_obj['height'];
+                        const cp = document['createElement']('canvas');
+                        cp['width'] = sw; cp['height'] = sh;
+                        cp['getContext']('2d')['drawImage'](_0x_state.img_obj, v[c] * _0x_state.img_obj['width'], h[r] * _0x_state.img_obj['height'], sw, sh, 0, 0, sw, sh);
+                        _0x_apply_alpha(cp);
+                        const fu = _0x_smart_fit(cp, 320);
+                        const div = document['createElement']('div');
+                        div['className'] = "bg-slate-900 border border-slate-800 rounded-2xl p-3 flex flex-col gap-3 group hover:border-blue-500 transition-all shadow-md";
+                        div['innerHTML'] = `<div class="aspect-square checkerboard rounded-xl flex items-center justify-center p-2 overflow-hidden"><img src="${fu}" class="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform"></div><button onclick="window._0x_dl('${fu}')" class="text-[10px] bg-slate-800 hover:bg-emerald-600 py-2 rounded-lg font-bold transition-colors text-white">下載</button>`;
+                        _0x_el_list['appendChild'](div);
+                    }
+                }
+                _0x_state.busy = false;
+            };
+
+            window._0x_dl = (u) => {
+                const a = document['createElement']('a'); a['href'] = u; a['download'] = `sticker_${Date['now']()}.png`; a['click']();
+            };
+
+            document['getElementById']('btn-download-zip')['onclick'] = async () => {
+                const zip = new JSZip();
+                const imgs = _0x_el_list['querySelectorAll']('img');
+                imgs['forEach']((img, i) => zip['file'](`sticker_${i+1}.png`, img['src']['split'](',')[1], {'base64': true}));
+                const a = document['createElement']('a');
+                a['href'] = URL['createObjectURL'](await zip['generateAsync']({'type': "blob"}));
+                a['download'] = 'stickers.zip';
+                a['click']();
+            };
+
+            setInterval(() => {
+                const s = performance['now']();
+                (function(){ return false; })['constructor']('debugger')();
+                if(performance['now']() - s > 100) document['getElementById']('security-lock')['classList']['remove']('hidden');
+            }, 1000);
+
+            window['onresize'] = _0x_draw_lines;
+        })();
     </script>
 </body>
 </html>
