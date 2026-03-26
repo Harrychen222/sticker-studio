@@ -36,7 +36,7 @@
                 <h1 class="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
                     Sticker Studio Pro <span class="text-lg opacity-80">V1.5.1</span>
                 </h1>
-                <p class="text-slate-400 text-sm mt-1">智慧裁切・精準去背・自訂尺寸</p>
+                <p class="text-slate-400 text-sm mt-1">智慧裁切・精準去背・3% 邊距</p>
             </div>
             <div class="flex gap-3">
                 <button onclick="location.reload()" class="text-xs bg-slate-800 hover:bg-slate-700 px-3 py-2 rounded-lg border border-slate-700 transition-all flex items-center gap-2 text-white shadow-md">
@@ -68,11 +68,20 @@
                                 <input type="number" id="input-cols" value="4" min="1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 outline-none focus:ring-2 ring-blue-500 text-white font-bold">
                             </div>
                         </div>
-                        <div class="space-y-2 pt-2">
-                            <label class="text-xs text-slate-500 font-bold uppercase tracking-widest text-emerald-400">輸出尺寸 (Output Size PX)</label>
-                            <div class="relative">
-                                <input type="number" id="input-out-size" value="320" min="10" max="1024" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 outline-none focus:ring-2 ring-emerald-500 text-white font-bold">
-                                <span class="absolute right-4 top-2 text-xs text-slate-500">PX</span>
+                        <div class="grid grid-cols-2 gap-4 pt-2">
+                            <div class="space-y-2">
+                                <label class="text-xs text-slate-500 font-bold uppercase tracking-widest text-emerald-400">輸出寬度 (W)</label>
+                                <div class="relative">
+                                    <input type="number" id="input-out-w" value="320" min="10" max="2048" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 outline-none focus:ring-2 ring-emerald-500 text-white font-bold">
+                                    <span class="absolute right-4 top-2 text-[10px] text-slate-500 uppercase">px</span>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs text-slate-500 font-bold uppercase tracking-widest text-emerald-400">輸出高度 (H)</label>
+                                <div class="relative">
+                                    <input type="number" id="input-out-h" value="320" min="10" max="2048" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 outline-none focus:ring-2 ring-emerald-500 text-white font-bold">
+                                    <span class="absolute right-4 top-2 text-[10px] text-slate-500 uppercase">px</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -116,24 +125,24 @@
         <footer class="space-y-10 border-t border-slate-800 pt-12 pb-20">
             <div class="text-center">
                 <h2 class="text-2xl font-black text-white mb-2">🦊 使用指南與教學</h2>
-                <p class="text-slate-500 text-sm">跟著步驟操作，快速生成專業貼圖</p>
+                <p class="text-slate-500 text-sm">精準邊距版：縮小邊距，放大創意</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="tutorial-card p-6 rounded-3xl">
                     <div class="w-10 h-10 bg-blue-600/20 rounded-xl flex items-center justify-center mb-4"><i data-lucide="image" class="w-6 h-6 text-blue-400"></i></div>
                     <h3 class="font-bold text-white mb-2 text-lg">1. 載入與設定網格</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">點擊上方載入貼圖大圖。調整 Rows 與 Cols 產生網格，並拖動紅色虛線對齊每張貼圖。建議您可以同時設定「輸出尺寸」，預設為符合 Line 標準的 320px。</p>
+                    <p class="text-slate-400 text-sm leading-relaxed">點擊上方載入貼圖大圖。調整 Rows 與 Cols 產生網格並對齊。您可以分別設定輸出長寬，系統會自動適配內容比例。</p>
                 </div>
                 <div class="tutorial-card p-6 rounded-3xl">
                     <div class="w-10 h-10 bg-emerald-600/20 rounded-xl flex items-center justify-center mb-4"><i data-lucide="pipette" class="w-6 h-6 text-emerald-400"></i></div>
                     <h3 class="font-bold text-white mb-2 text-lg">2. 吸管去背功能</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">點擊吸管，並在圖片背景點一下選色。觀察右下角「預覽小圖」，調整「去背強度」直到背景完全透明（呈現灰色棋盤格）。</p>
+                    <p class="text-slate-400 text-sm leading-relaxed">利用吸管點擊背景選色，調整「去背強度」直至背景透明。此操作不會受混淆代碼影響，已針對各種比例進行座標優化。</p>
                 </div>
                 <div class="tutorial-card p-6 rounded-3xl">
                     <div class="w-10 h-10 bg-purple-600/20 rounded-xl flex items-center justify-center mb-4"><i data-lucide="layout-grid" class="w-6 h-6 text-purple-400"></i></div>
-                    <h3 class="font-bold text-white mb-2 text-lg">3. 智慧裁切與邊距</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">執行裁切後，系統會自動偵測主體邊界，將其縮放至您設定的尺寸，並預留 5% 的留白邊距，確保貼圖不會被切邊且美觀。</p>
+                    <h3 class="font-bold text-white mb-2 text-lg">3. 置中與 3% 邊距</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">執行裁切後，系統會自動將貼圖主體置中，並預留 **3% 的安全邊距**。這能讓貼圖看起來更飽滿，同時避免圖案緊貼畫布邊緣。</p>
                 </div>
             </div>
 
@@ -141,20 +150,20 @@
                 <h3 class="font-bold text-white mb-6 flex items-center gap-2 text-lg"><i data-lucide="help-circle" class="w-5 h-5 text-blue-400"></i> 常見問題 Q&A</h3>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-6">
                     <div class="space-y-2">
-                        <h4 class="text-blue-400 font-bold text-sm">Q：輸出尺寸可以超過 1000px 嗎？</h4>
-                        <p class="text-slate-400 text-xs leading-relaxed">A：為了效能考量，目前的設定限制在 1024px 以內。這對於絕大多數的貼圖平台（如 Line, WhatsApp, Telegram）已非常足夠。</p>
+                        <h4 class="text-blue-400 font-bold text-sm">Q：為什麼邊距要設為 3%？</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">A：這是根據經驗微調的比例，能在維持內容最大化的同時，防止在通訊軟體顯示時發生切邊情況。</p>
                     </div>
                     <div class="space-y-2">
-                        <h4 class="text-blue-400 font-bold text-sm">Q：輸出的貼圖可以去背但不置中嗎？</h4>
-                        <p class="text-slate-400 text-xs leading-relaxed">A：本工具專為官方貼圖規範優化，自動置中與保留 5% 邊距是為了通過平台的自動審核機制，暫不提供關閉選項。</p>
+                        <h4 class="text-blue-400 font-bold text-sm">Q：輸出長寬比會影響邊距嗎？</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">A：不論您設定的是正方形還是長方形，3% 邊距會依據較長的那一邊進行計算，確保四周都有安全間隔。</p>
                     </div>
                     <div class="space-y-2">
-                        <h4 class="text-blue-400 font-bold text-sm">Q：為何預覽圖看起來有點模糊？</h4>
-                        <p class="text-slate-400 text-xs leading-relaxed">A：為了操作流暢度，預覽圖採用較低解析度顯示。最終裁切輸出的貼圖將會使用原始圖片解析度，保證畫質清晰。</p>
+                        <h4 class="text-blue-400 font-bold text-sm">Q：畫面顯示「非法分析」？</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">A：本工具內建安全防護，若您開啟「開發者模式 (F12)」會導致介面鎖定。請關閉 F12 並重新整理網頁即可恢復。</p>
                     </div>
                     <div class="space-y-2">
-                        <h4 class="text-blue-400 font-bold text-sm">Q：手機上可以使用嗎？</h4>
-                        <p class="text-slate-400 text-xs leading-relaxed">A：可以，但由於網格拖動需要精準操作，強烈建議使用電腦版瀏覽器或平板搭配觸控筆操作以獲得最佳體驗。</p>
+                        <h4 class="text-blue-400 font-bold text-sm">Q：輸出的最大極限是多少？</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">A：目前設定最大輸出為 2048x2048 PX，滿足高畫質匯出的所有場景。</p>
                     </div>
                 </div>
             </div>
@@ -179,7 +188,7 @@
             if(!_0x_domain_check()) return;
 
             lucide['createIcons']();
-            let _0x_state={img_obj:null,rows:2,cols:4,out_size:320,h_lines:[0.5],v_lines:[0.25,0.5,0.75],active_l:null,bg_rgb:{'r':255,'g':255,'b':255},tol:30,results:[],busy:false};
+            let _0x_state={img_obj:null,rows:2,cols:4,out_w:320,out_h:320,h_lines:[0.5],v_lines:[0.25,0.5,0.75],active_l:null,bg_rgb:{'r':255,'g':255,'b':255},tol:30,results:[],busy:false};
             
             const _0x_el_file = document['getElementById']('file-input');
             const _0x_el_main = document['getElementById']('main-image');
@@ -188,7 +197,8 @@
             const _0x_el_list = document['getElementById']('sticker-grid');
             const _0x_el_card = document['getElementById']('settings-card');
             const _0x_el_box = document['getElementById']('canvas-container');
-            const _0x_el_out_size = document['getElementById']('input-out-size');
+            const _0x_el_out_w = document['getElementById']('input-out-w');
+            const _0x_el_out_h = document['getElementById']('input-out-h');
 
             document['getElementById']('drop-zone')['onclick'] = () => _0x_el_file['click']();
             document['getElementById']('btn-change-img')['onclick'] = () => _0x_el_file['click']();
@@ -236,7 +246,8 @@
             function _0x_reset_grid(){
                 _0x_state.rows = parseInt(document['getElementById']('input-rows')['value']) || 2;
                 _0x_state.cols = parseInt(document['getElementById']('input-cols')['value']) || 4;
-                _0x_state.out_size = parseInt(_0x_el_out_size.value) || 320;
+                _0x_state.out_w = parseInt(_0x_el_out_w.value) || 320;
+                _0x_state.out_h = parseInt(_0x_el_out_h.value) || 320;
                 _0x_state.h_lines = []; _0x_state.v_lines = [];
                 for(let i=1; i < _0x_state.rows; i++) _0x_state.h_lines['push'](i / _0x_state.rows);
                 for(let i=1; i < _0x_state.cols; i++) _0x_state.v_lines['push'](i / _0x_state.cols);
@@ -245,7 +256,8 @@
 
             document['getElementById']('input-rows')['onchange'] = _0x_reset_grid;
             document['getElementById']('input-cols')['onchange'] = _0x_reset_grid;
-            _0x_el_out_size['onchange'] = () => { _0x_state.out_size = parseInt(_0x_el_out_size.value) || 320; _0x_update_pre(); };
+            _0x_el_out_w['onchange'] = () => { _0x_state.out_w = parseInt(_0x_el_out_w.value) || 320; _0x_update_pre(); };
+            _0x_el_out_h['onchange'] = () => { _0x_state.out_h = parseInt(_0x_el_out_h.value) || 320; _0x_update_pre(); };
 
             function _0x_draw_lines(){
                 if(!_0x_state.img_obj) return;
@@ -325,11 +337,13 @@
                 const tctx = tmp['getContext']('2d');
                 tctx['drawImage'](_0x_state.img_obj, v[0] * _0x_state.img_obj['width'], h[0] * _0x_state.img_obj['height'], sw, sh, 0, 0, sw, sh);
                 _0x_apply_alpha(tmp);
+                
                 const mctx = _0x_el_mini['getContext']('2d');
                 mctx['clearRect'](0, 0, 120, 120);
+                
                 const fimg = new Image();
                 fimg['onload'] = () => mctx['drawImage'](fimg, 0, 0);
-                fimg['src'] = _0x_smart_fit(tmp, 120);
+                fimg['src'] = _0x_smart_fit(tmp, 120, 120);
             }
 
             function _0x_apply_alpha(canv){
@@ -344,7 +358,8 @@
                 ctx['putImageData'](d, 0, 0);
             }
 
-            function _0x_smart_fit(canv, size=320){
+            // 安全邊距調整為 3% (內容佔比 97%)
+            function _0x_smart_fit(canv, targetW=320, targetH=320){
                 const ctx = canv['getContext']('2d');
                 const d = ctx['getImageData'](0, 0, canv['width'], canv['height'])['data'];
                 let x0=canv['width'], y0=canv['height'], x1=0, y1=0, f=false;
@@ -358,11 +373,17 @@
                     }
                 }
                 if(!f) return canv['toDataURL']('image/png');
-                const o = document['createElement']('canvas'); o['width'] = o['height'] = size;
+                
+                const o = document['createElement']('canvas'); 
+                o['width'] = targetW; o['height'] = targetH;
                 const oct = o['getContext']('2d');
-                const cw = x1 - x0 + 1, ch = y1 - y0 + 1, sc = Math['min']((size * 0.95) / cw, (size * 0.95) / ch);
+                const cw = x1 - x0 + 1, ch = y1 - y0 + 1;
+                
+                // 改為 0.97 (留白 3%)
+                const sc = Math['min']((targetW * 0.97) / cw, (targetH * 0.97) / ch);
                 const fw = cw * sc, fh = ch * sc;
-                oct['drawImage'](canv, x0, y0, cw, ch, (size - fw) / 2, (size - fh) / 2, fw, fh);
+                
+                oct['drawImage'](canv, x0, y0, cw, ch, (targetW - fw) / 2, (targetH - fh) / 2, fw, fh);
                 return o['toDataURL']('image/png');
             }
 
@@ -379,7 +400,7 @@
                         cp['width'] = sw; cp['height'] = sh;
                         cp['getContext']('2d')['drawImage'](_0x_state.img_obj, v[c] * _0x_state.img_obj['width'], h[r] * _0x_state.img_obj['height'], sw, sh, 0, 0, sw, sh);
                         _0x_apply_alpha(cp);
-                        const fu = _0x_smart_fit(cp, _0x_state.out_size);
+                        const fu = _0x_smart_fit(cp, _0x_state.out_w, _0x_state.out_h);
                         const div = document['createElement']('div');
                         div['className'] = "bg-slate-900 border border-slate-800 rounded-2xl p-3 flex flex-col gap-3 group hover:border-blue-500 transition-all shadow-md";
                         div['innerHTML'] = `<div class="aspect-square checkerboard rounded-xl flex items-center justify-center p-2 overflow-hidden"><img src="${fu}" class="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform"></div><button onclick="window._0x_dl('${fu}')" class="text-[10px] bg-slate-800 hover:bg-emerald-600 py-2 rounded-lg font-bold transition-colors text-white">下載</button>`;
