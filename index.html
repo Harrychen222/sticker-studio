@@ -17,9 +17,11 @@
         .col-resize { cursor: ew-resize; } .row-resize { cursor: ns-resize; }
         input[type=range] { -webkit-appearance: none; background: #334155; height: 6px; border-radius: 5px; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #3b82f6; cursor: pointer; }
+        .tutorial-card { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(51, 65, 85, 0.5); }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen">
+    <!-- 安全遮罩 -->
     <div id="security-lock" class="fixed inset-0 bg-slate-950 z-[9999] flex flex-col items-center justify-center hidden p-8 text-center">
         <i data-lucide="shield-alert" class="w-20 h-20 text-red-500 mb-6"></i>
         <h2 class="text-3xl font-black text-white mb-2">檢測到非法分析行為</h2>
@@ -28,6 +30,7 @@
     </div>
 
     <div class="max-w-7xl mx-auto px-4 py-8">
+        <!-- 標題 -->
         <header class="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 text-white">
             <div>
                 <h1 class="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
@@ -42,7 +45,9 @@
             </div>
         </header>
 
-        <main class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- 工具主體 -->
+        <main class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+            <!-- 左側控制面板 -->
             <section class="lg:col-span-4 space-y-6">
                 <div id="drop-zone" class="bg-slate-900 border-2 border-dashed border-slate-700 rounded-3xl p-10 text-center hover:border-blue-500 transition-all cursor-pointer group shadow-2xl">
                     <input type="file" id="file-input" accept="image/*" class="hidden">
@@ -80,6 +85,7 @@
                 </div>
             </section>
 
+            <!-- 畫布與結果區 -->
             <section class="lg:col-span-8 flex flex-col gap-6">
                 <div id="canvas-container" class="relative bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden flex flex-col hidden h-[600px] shadow-2xl">
                     <div class="flex-1 relative overflow-hidden flex items-center justify-center checkerboard" id="canvas-viewport">
@@ -90,15 +96,66 @@
                 </div>
                 <div id="results-area" class="space-y-4 hidden">
                     <div class="flex items-center justify-between px-2 text-white"><h2 class="text-lg font-bold flex items-center gap-2">輸出結果 (320px)</h2><button id="btn-download-zip" class="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2 rounded-xl font-bold text-sm flex items-center gap-2 shadow-lg shadow-emerald-900/20 transition-all"><i data-lucide="download" class="w-4 h-4"></i> 下載 ZIP</button></div>
-                    <div id="sticker-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 pb-12"></div>
+                    <div id="sticker-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4"></div>
                 </div>
             </section>
         </main>
+
+        <!-- 整合教學區 -->
+        <footer class="space-y-10 border-t border-slate-800 pt-12 pb-20">
+            <div class="text-center">
+                <h2 class="text-2xl font-black text-white mb-2">🦊 使用指南與教學</h2>
+                <p class="text-slate-500 text-sm">跟著步驟操作，快速生成專業貼圖</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="tutorial-card p-6 rounded-3xl">
+                    <div class="w-10 h-10 bg-blue-600/20 rounded-xl flex items-center justify-center mb-4"><i data-lucide="image" class="w-6 h-6 text-blue-400"></i></div>
+                    <h3 class="font-bold text-white mb-2 text-lg">1. 載入與設定</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">點擊上方區域載入貼圖大圖。調整 Rows (列數) 與 Cols (行數) 產生對應網格。利用滑鼠拖動紅色虛線，精準對齊每張貼圖。</p>
+                </div>
+                <div class="tutorial-card p-6 rounded-3xl">
+                    <div class="w-10 h-10 bg-emerald-600/20 rounded-xl flex items-center justify-center mb-4"><i data-lucide="pipette" class="w-6 h-6 text-emerald-400"></i></div>
+                    <h3 class="font-bold text-white mb-2 text-lg">2. 去背與微調</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">點擊吸管後，在圖片背景處點一下即可選色。調整「去背強度」直至預覽小圖呈現乾淨透明背景（棋盤格）。</p>
+                </div>
+                <div class="tutorial-card p-6 rounded-3xl">
+                    <div class="w-10 h-10 bg-purple-600/20 rounded-xl flex items-center justify-center mb-4"><i data-lucide="layout-grid" class="w-6 h-6 text-purple-400"></i></div>
+                    <h3 class="font-bold text-white mb-2 text-lg">3. 智慧裁切匯出</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">點擊「執行智慧裁切」。系統將自動偵測內容邊界、置中並保留 5% 邊距，匯出標準 320x320 PX 的 PNG 透明貼圖。</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-900/40 border border-slate-800 p-8 rounded-3xl">
+                <h3 class="font-bold text-white mb-6 flex items-center gap-2 text-lg"><i data-lucide="help-circle" class="w-5 h-5 text-blue-400"></i> 常見問題 Q&A</h3>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-6">
+                    <div class="space-y-2">
+                        <h4 class="text-blue-400 font-bold text-sm">Q：為什麼去背效果不佳？</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">A：若背景顏色不均勻，建議使用吸管分別點擊較深與較淺的區域。同時適度增加「去背強度」，直到背景完全消失。</p>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="text-blue-400 font-bold text-sm">Q：輸出規格可以自訂嗎？</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">A：本版本固定為 320x320 PX (Line貼圖標準)。若需其他規格，請關注後續 V2.0 專業版更新。</p>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="text-blue-400 font-bold text-sm">Q：畫面顯示「非法分析」？</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">A：本工具內建安全防護，若您開啟「開發者模式 (F12)」會導致介面鎖定。請關閉 F12 並重新整理網頁即可恢復。</p>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="text-blue-400 font-bold text-sm">Q：為何無法點擊載入圖片？</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">A：請確認您是在授權網域 (harrychen222.github.io) 下使用，本保護版在未經授權的網域下會限制部分功能。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center text-[10px] text-slate-600 uppercase tracking-widest font-bold">
+                FoxSticker 創作者工具系列 · Sticker Studio Pro V1.5.1
+            </div>
+        </footer>
     </div>
 
     <script>
         (function(_0x_main_scope, _0x_reserved){
-            // 修正：將網域檢查函數重新命名為 _0x_domain_check 避開衝突
             const _0x_domain_check = function(){
                 const _0x_current_host = window['location']['hostname'];
                 const _0x_allowed_hosts = ['localhost', '127.0.0.1', 'harrychen222.github.io'];
@@ -316,6 +373,7 @@
                     }
                 }
                 _0x_state.busy = false;
+                _0x_el_list['scrollIntoView']({ behavior: 'smooth' });
             };
 
             window._0x_dl = (u) => {
