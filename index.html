@@ -94,7 +94,7 @@
                         </div>
                     </div>
 
-                    <div class="pt-4 border-t border-slate-800">
+                    <div class="pt-4 border-t border-slate-800 space-y-5">
                         <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded-2xl border border-slate-800">
                             <div class="flex flex-col">
                                 <span class="text-xs text-slate-300 font-bold">目前去背色</span>
@@ -105,8 +105,16 @@
                                 <button id="btn-pick-color" class="bg-blue-600 hover:bg-blue-500 p-2 rounded-xl transition-all text-white shadow-lg"><i data-lucide="pipette" class="w-4 h-4"></i></button>
                             </div>
                         </div>
-                        <div class="flex justify-between mt-4"><span class="text-xs text-slate-500 font-bold">去背強度 (容差)</span><span id="tol-val" class="text-xs text-blue-400 font-bold">30</span></div>
-                        <input type="range" id="range-tolerance" min="0" max="150" value="30" class="w-full mt-2">
+                        
+                        <div>
+                            <div class="flex justify-between mb-2"><span class="text-xs text-slate-500 font-bold">去背強度 (容差)</span><span id="tol-val" class="text-xs text-blue-400 font-bold">30</span></div>
+                            <input type="range" id="range-tolerance" min="0" max="150" value="30" class="w-full">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2"><span class="text-xs text-slate-500 font-bold">擴展去背範圍</span><span id="exp-val" class="text-xs text-emerald-400 font-bold">1 px</span></div>
+                            <input type="range" id="range-expand" min="0" max="10" value="1" class="w-full">
+                        </div>
                     </div>
                     <button id="btn-process" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white py-4 rounded-2xl font-bold shadow-xl shadow-blue-900/20 flex items-center justify-center gap-2 transition-transform active:scale-95"><i data-lucide="zap" class="w-5 h-5"></i> 執行智慧裁切</button>
                     <button id="btn-change-img" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 py-3 rounded-2xl font-semibold text-sm transition-all flex items-center justify-center gap-2 text-white">更換圖片</button>
@@ -143,13 +151,13 @@
                 </div>
                 <div class="tutorial-card p-6 rounded-3xl">
                     <div class="w-10 h-10 bg-emerald-600/20 rounded-xl flex items-center justify-center mb-4"><i data-lucide="pipette" class="w-6 h-6 text-emerald-400"></i></div>
-                    <h3 class="font-bold text-white mb-2 text-lg">2. 羽化去背功能</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">利用吸管點擊背景選色，調整強度。V1.6 導入邊緣羽化邏輯，讓裁切後的貼圖邊緣不再生硬鋸齒。</p>
+                    <h3 class="font-bold text-white mb-2 text-lg">2. 智慧去背功能</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">利用吸管選色並調整強度。V1.6 新增「擴展範圍」，可手動微調去背邊緣收斂程度，搭配邊緣羽化邏輯，讓裁切效果不再生硬。</p>
                 </div>
                 <div class="tutorial-card p-6 rounded-3xl">
                     <div class="w-10 h-10 bg-purple-600/20 rounded-xl flex items-center justify-center mb-4"><i data-lucide="layout-grid" class="w-6 h-6 text-purple-400"></i></div>
                     <h3 class="font-bold text-white mb-2 text-lg">3. 置中與 3% 邊距</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">執行裁切後，系統會自動置中並預留 3% 安全邊距。這符合主流平台審核標準，確保您的創作不被切邊。</p>
+                    <p class="text-slate-400 text-sm leading-relaxed">執行裁切後，系統會自動置中並預留 3% 安全邊距。這符合主流平台審核標準，確保您的創作不被切邊且視覺協調。</p>
                 </div>
             </div>
 
@@ -157,10 +165,10 @@
                 <h3 class="font-bold text-white mb-6 flex items-center gap-2 text-lg"><i data-lucide="info" class="w-5 h-5 text-blue-400"></i> 貼圖製作專業知識</h3>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-6">
                     <div class="space-y-2 text-slate-400 text-xs leading-relaxed">
-                        <h4 class="text-blue-400 font-bold text-sm">為什麼邊距設定為 3% 最合適？</h4>
-                        <p>在製作 LINE 或 WhatsApp 貼圖時，若主體緊貼邊緣，在通訊軟體氣泡顯示中容易發生視覺壓迫或被自動切邊。3% 的邊距在維持圖案飽滿度的同時，也提供了專業的視覺緩衝區。</p>
+                        <h4 class="text-blue-400 font-bold text-sm">什麼是「擴展去背範圍」？</h4>
+                        <p>當背景色與主體邊緣非常接近時，單純的去背往往會留下一層細微的「背景光暈」。透過擴展範圍（例如 1-2px），系統會將去背範圍向主體內部延伸，強制切除雜邊，讓貼圖主體更乾淨立體。</p>
                         <h4 class="text-blue-400 font-bold text-sm" class="mt-4">關於羽化去背 (Feathering)</h4>
-                        <p>一般的去背工具僅進行 0 或 1 的 Alpha 切換，導致邊緣鋸齒嚴重。Sticker Studio Pro V1.6 採用顏色漸變演算，在接近背景色的邊緣給予半透明度處理，讓貼圖能更自然地融入各種深淺色的對話框。</p>
+                        <p>一般的去背工具僅進行 0 或 1 的 Alpha 切換，導致邊緣鋸齒嚴重。Sticker Studio Pro 採用顏色漸變演算，在接近背景色的邊緣給予半透明度處理，讓貼圖能更自然地融入各種深淺色的對話框。</p>
                     </div>
                     <div class="space-y-4">
                         <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
@@ -168,8 +176,8 @@
                             <p class="text-slate-400 text-[11px] leading-relaxed">Sticker Studio Pro 是一款純前端工具。您的所有圖片都在本機裝置（RAM）內進行處理與裁切，我們不會、也無法將您的創作上傳至任何雲端伺服器。這保證了您未公開作品的商業機密安全。</p>
                         </div>
                         <div class="space-y-2">
-                            <h4 class="text-blue-400 font-bold text-sm">Q：輸出的最大極限是多少？</h4>
-                            <p class="text-slate-400 text-xs leading-relaxed">A：目前設定最大輸出為 1024x1024 PX，已滿足高畫質貼圖匯出的所有場景需求。</p>
+                            <h4 class="text-blue-400 font-bold text-sm">Q：為什麼邊距設定為 3% 最合適？</h4>
+                            <p class="text-slate-400 text-xs leading-relaxed">A：這是根據經驗微調的比例，能在維持內容最大化的同時，防止在通訊軟體氣泡顯示中因圓角或陰影而發生切邊情況。</p>
                         </div>
                     </div>
                 </div>
@@ -183,10 +191,8 @@
 
     <script>
         (function(_0x_main_scope, _0x_reserved){
-            // 彈性網域檢查
             const _0x_domain_check = function(){
                 const _0x_current_host = window['location']['hostname'];
-                // 建議：將新買的網域加入此陣列
                 const _0x_allowed_hosts = ['localhost', '127.0.0.1', 'harrychen222.github.io', 'your-new-domain.com'];
                 if(!_0x_allowed_hosts['includes'](_0x_current_host) && !_0x_current_host['endsWith']('.goog')){
                     document['getElementById']('security-lock')['classList']['remove']('hidden');
@@ -197,7 +203,7 @@
             if(!_0x_domain_check()) return;
 
             lucide['createIcons']();
-            let _0x_state={img_obj:null,rows:2,cols:4,out_w:320,out_h:320,h_lines:[0.5],v_lines:[0.25,0.5,0.75],active_l:null,bg_rgb:{'r':255,'g':255,'b':255},tol:30,results:[],busy:false};
+            let _0x_state={img_obj:null,rows:2,cols:4,out_w:320,out_h:320,h_lines:[0.5],v_lines:[0.25,0.5,0.75],active_l:null,bg_rgb:{'r':255,'g':255,'b':255},tol:30,expand:1,results:[],busy:false};
             
             const _0x_el_file = document['getElementById']('file-input');
             const _0x_el_main = document['getElementById']('main-image');
@@ -268,9 +274,8 @@
             _0x_el_out_w['onchange'] = () => { _0x_state.out_w = parseInt(_0x_el_out_w.value) || 320; _0x_update_pre(); };
             _0x_el_out_h['onchange'] = () => { _0x_state.out_h = parseInt(_0x_el_out_h.value) || 320; _0x_update_pre(); };
 
-            // 支援行動端觸控
             window._0x_start_drag = (idx, type, ev) => {
-                ev['preventDefault'](); // 防止滾動
+                ev['preventDefault']();
                 ev['stopPropagation']();
                 _0x_state.active_l = {'t':type, 'i':idx};
                 const moveEv = ev.type.startsWith('touch') ? 'touchmove' : 'mousemove';
@@ -296,7 +301,7 @@
                 _0x_update_pre();
             };
 
-            const _0x_stop_drag = (e) => {
+            const _0x_stop_drag = () => {
                 _0x_state.active_l = null;
                 document['removeEventListener']('mousemove', _0x_moving);
                 document['removeEventListener']('touchmove', _0x_moving);
@@ -345,6 +350,12 @@
                 _0x_update_pre();
             };
 
+            document['getElementById']('range-expand')['oninput'] = (e) => {
+                _0x_state.expand = parseInt(e['target']['value']);
+                document['getElementById']('exp-val')['innerText'] = _0x_state.expand + ' px';
+                _0x_update_pre();
+            };
+
             function _0x_update_pre(){
                 if(!_0x_state.img_obj) return;
                 const v = [0, ..._0x_state.v_lines, 1]['sort']((a, b) => a - b), h = [0, ..._0x_state.h_lines, 1]['sort']((a, b) => a - b);
@@ -362,25 +373,48 @@
                 fimg['src'] = _0x_smart_fit(tmp, 120, 120);
             }
 
-            // 優化去背：引入 10px 的羽化範圍
             function _0x_apply_alpha(canv){
                 const ctx = canv['getContext']('2d');
-                const d = ctx['getImageData'](0, 0, canv['width'], canv['height']);
+                const w = canv['width'], h = canv['height'];
+                const d = ctx['getImageData'](0, 0, w, h);
                 const {r, g, b} = _0x_state.bg_rgb;
                 const t = _0x_state.tol;
-                const feather = 10; // 羽化範圍
+                const feather = 10;
+                const alphaMap = new Uint8Array(w * h);
 
+                // 第一步：基礎去背與羽化
                 for(let i=0; i < d['data']['length']; i += 4){
                     const dr = d['data'][i] - r, dg = d['data'][i+1] - g, db = d['data'][i+2] - b;
-                    const dist = Math['sqrt'](dr * dr + dg * dg + db * db);
-                    
-                    if(dist < t) {
-                        d['data'][i+3] = 0;
-                    } else if(dist < t + feather) {
-                        // 羽化邏輯：計算過渡 Alpha
-                        const alphaRatio = (dist - t) / feather;
-                        d['data'][i+3] = Math.floor(alphaRatio * 255);
+                    const dist = Math.sqrt(dr * dr + dg * dg + db * db);
+                    let alpha = 255;
+                    if(dist < t) alpha = 0;
+                    else if(dist < t + feather) alpha = Math.floor(((dist - t) / feather) * 255);
+                    d['data'][i+3] = alpha;
+                    alphaMap[i/4] = alpha;
+                }
+
+                // 第二步：擴展去背範圍 (收斂邊緣)
+                if(_0x_state.expand > 0){
+                    const finalAlpha = new Uint8Array(alphaMap);
+                    const radius = _0x_state.expand;
+                    for(let y=0; y<h; y++){
+                        for(let x=0; x<w; x++){
+                            if(alphaMap[y * w + x] > 10){
+                                let minAlpha = 255;
+                                search: for(let dy=-radius; dy<=radius; dy++){
+                                    for(let dx=-radius; dx<=radius; dx++){
+                                        const ny = y + dy, nx = x + dx;
+                                        if(ny>=0 && ny<h && nx>=0 && nx<w){
+                                            minAlpha = Math.min(minAlpha, alphaMap[ny * w + nx]);
+                                            if(minAlpha === 0) break search;
+                                        }
+                                    }
+                                }
+                                finalAlpha[y * w + x] = minAlpha;
+                            }
+                        }
                     }
+                    for(let i=0; i<w*h; i++) d['data'][i*4 + 3] = finalAlpha[i];
                 }
                 ctx['putImageData'](d, 0, 0);
             }
