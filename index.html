@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sticker Studio Pro V1.5.1</title>
+    <!-- SEO 優化標籤 -->
+    <title>Sticker Studio Pro - 專業 LINE 貼圖裁切與去背工具</title>
+    <meta name="description" content="專業 LINE 貼圖裁切工具，支援智慧去背、精準 3% 邊距設定與自訂尺寸，一鍵匯出符合規範的貼圖格式。所有處理皆在本地端完成，保障您的隱私。">
+    <meta name="keywords" content="貼圖製作, LINE貼圖, 圖片去背, 圖片裁切, Sticker Studio, 去背工具, 透明背景">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -13,7 +17,7 @@
         .checkerboard { background-image: linear-gradient(45deg, #2d3748 25%, transparent 25%), linear-gradient(-45deg, #2d3748 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #2d3748 75%), linear-gradient(-45deg, transparent 75%, #2d3748 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px; background-color: #1a202c; }
         .grid-line { stroke: #f43f5e; stroke-width: 2; stroke-dasharray: 4 4; opacity: 0.6; cursor: move; }
         .grid-line:hover { stroke: #3b82f6; opacity: 1; stroke-dasharray: none; }
-        .grid-line-hitbox { stroke: transparent; stroke-width: 15; cursor: move; }
+        .grid-line-hitbox { stroke: transparent; stroke-width: 20; cursor: move; } /* 增加觸控熱區 */
         .col-resize { cursor: ew-resize; } .row-resize { cursor: ns-resize; }
         input[type=range] { -webkit-appearance: none; background: #334155; height: 6px; border-radius: 5px; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #3b82f6; cursor: pointer; }
@@ -29,14 +33,19 @@
         <button onclick="location.reload()" class="mt-8 bg-blue-600 px-6 py-2 rounded-xl text-white font-bold">重整網頁</button>
     </div>
 
+    <!-- 隱私聲明頂部橫幅 -->
+    <div class="bg-blue-600/10 border-b border-blue-500/20 text-center py-2 text-[10px] text-blue-300 font-bold uppercase tracking-widest">
+        🔒 隱私保障：所有圖片處理皆在您的瀏覽器本地完成，資料絕不外傳伺服器
+    </div>
+
     <div class="max-w-7xl mx-auto px-4 py-8">
         <!-- 標題 -->
         <header class="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 text-white">
             <div>
                 <h1 class="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
-                    Sticker Studio Pro <span class="text-lg opacity-80">V1.5.1</span>
+                    Sticker Studio Pro <span class="text-lg opacity-80">V1.6.0</span>
                 </h1>
-                <p class="text-slate-400 text-sm mt-1">智慧裁切・精準去背・3% 邊距</p>
+                <p class="text-slate-400 text-sm mt-1">智慧裁切・邊緣羽化・精準去背</p>
             </div>
             <div class="flex gap-3">
                 <button onclick="location.reload()" class="text-xs bg-slate-800 hover:bg-slate-700 px-3 py-2 rounded-lg border border-slate-700 transition-all flex items-center gap-2 text-white shadow-md">
@@ -56,7 +65,6 @@
                 </div>
 
                 <div id="settings-card" class="bg-slate-900/50 border border-slate-800 rounded-3xl p-6 space-y-6 hidden backdrop-blur-sm shadow-xl text-white">
-                    <!-- 網格與尺寸設定 -->
                     <div class="space-y-4">
                         <div class="grid grid-cols-2 gap-4">
                             <div class="space-y-2">
@@ -70,16 +78,16 @@
                         </div>
                         <div class="grid grid-cols-2 gap-4 pt-2">
                             <div class="space-y-2">
-                                <label class="text-xs text-slate-500 font-bold uppercase tracking-widest text-emerald-400">輸出寬度 (W)</label>
+                                <label class="text-xs text-slate-500 font-bold uppercase tracking-widest text-emerald-400">寬度 (W)</label>
                                 <div class="relative">
-                                    <input type="number" id="input-out-w" value="320" min="10" max="2048" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 outline-none focus:ring-2 ring-emerald-500 text-white font-bold">
+                                    <input type="number" id="input-out-w" value="320" min="10" max="1024" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 outline-none focus:ring-2 ring-emerald-500 text-white font-bold">
                                     <span class="absolute right-4 top-2 text-[10px] text-slate-500 uppercase">px</span>
                                 </div>
                             </div>
                             <div class="space-y-2">
-                                <label class="text-xs text-slate-500 font-bold uppercase tracking-widest text-emerald-400">輸出高度 (H)</label>
+                                <label class="text-xs text-slate-500 font-bold uppercase tracking-widest text-emerald-400">高度 (H)</label>
                                 <div class="relative">
-                                    <input type="number" id="input-out-h" value="320" min="10" max="2048" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 outline-none focus:ring-2 ring-emerald-500 text-white font-bold">
+                                    <input type="number" id="input-out-h" value="320" min="10" max="1024" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 outline-none focus:ring-2 ring-emerald-500 text-white font-bold">
                                     <span class="absolute right-4 top-2 text-[10px] text-slate-500 uppercase">px</span>
                                 </div>
                             </div>
@@ -121,64 +129,65 @@
             </section>
         </main>
 
-        <!-- 整合教學區 -->
-        <footer class="space-y-10 border-t border-slate-800 pt-12 pb-20">
+        <!-- 整合教學區 (補強文字內容以利 AdSense 審核) -->
+        <footer class="space-y-12 border-t border-slate-800 pt-12 pb-20">
             <div class="text-center">
                 <h2 class="text-2xl font-black text-white mb-2">🦊 使用指南與教學</h2>
-                <p class="text-slate-500 text-sm">精準邊距版：縮小邊距，放大創意</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="tutorial-card p-6 rounded-3xl">
                     <div class="w-10 h-10 bg-blue-600/20 rounded-xl flex items-center justify-center mb-4"><i data-lucide="image" class="w-6 h-6 text-blue-400"></i></div>
                     <h3 class="font-bold text-white mb-2 text-lg">1. 載入與設定網格</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">點擊上方載入貼圖大圖。調整 Rows 與 Cols 產生網格並對齊。您可以分別設定輸出長寬，系統會自動適配內容比例。</p>
+                    <p class="text-slate-400 text-sm leading-relaxed">點擊上方載入貼圖大圖。調整 Rows 與 Cols 產生網格，並拖動紅色虛線對齊（紅色虛線可以調整位置）。您可以分別設定輸出寬高。</p>
                 </div>
                 <div class="tutorial-card p-6 rounded-3xl">
                     <div class="w-10 h-10 bg-emerald-600/20 rounded-xl flex items-center justify-center mb-4"><i data-lucide="pipette" class="w-6 h-6 text-emerald-400"></i></div>
-                    <h3 class="font-bold text-white mb-2 text-lg">2. 吸管去背功能</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">利用吸管點擊背景選色，調整「去背強度」直至背景透明。此操作不會受混淆代碼影響，已針對各種比例進行座標優化。</p>
+                    <h3 class="font-bold text-white mb-2 text-lg">2. 羽化去背功能</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">利用吸管點擊背景選色，調整強度。V1.6 導入邊緣羽化邏輯，讓裁切後的貼圖邊緣不再生硬鋸齒。</p>
                 </div>
                 <div class="tutorial-card p-6 rounded-3xl">
                     <div class="w-10 h-10 bg-purple-600/20 rounded-xl flex items-center justify-center mb-4"><i data-lucide="layout-grid" class="w-6 h-6 text-purple-400"></i></div>
                     <h3 class="font-bold text-white mb-2 text-lg">3. 置中與 3% 邊距</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">執行裁切後，系統會自動將貼圖主體置中，並預留 **3% 的安全邊距**。這能讓貼圖看起來更飽滿，同時避免圖案緊貼畫布邊緣。</p>
+                    <p class="text-slate-400 text-sm leading-relaxed">執行裁切後，系統會自動置中並預留 3% 安全邊距。這符合主流平台審核標準，確保您的創作不被切邊。</p>
                 </div>
             </div>
 
             <div class="bg-slate-900/40 border border-slate-800 p-8 rounded-3xl">
-                <h3 class="font-bold text-white mb-6 flex items-center gap-2 text-lg"><i data-lucide="help-circle" class="w-5 h-5 text-blue-400"></i> 常見問題 Q&A</h3>
+                <h3 class="font-bold text-white mb-6 flex items-center gap-2 text-lg"><i data-lucide="info" class="w-5 h-5 text-blue-400"></i> 貼圖製作專業知識</h3>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-6">
-                    <div class="space-y-2">
-                        <h4 class="text-blue-400 font-bold text-sm">Q：為什麼邊距要設為 3%？</h4>
-                        <p class="text-slate-400 text-xs leading-relaxed">A：這是根據經驗微調的比例，能在維持內容最大化的同時，防止在通訊軟體顯示時發生切邊情況。</p>
+                    <div class="space-y-2 text-slate-400 text-xs leading-relaxed">
+                        <h4 class="text-blue-400 font-bold text-sm">為什麼邊距設定為 3% 最合適？</h4>
+                        <p>在製作 LINE 或 WhatsApp 貼圖時，若主體緊貼邊緣，在通訊軟體氣泡顯示中容易發生視覺壓迫或被自動切邊。3% 的邊距在維持圖案飽滿度的同時，也提供了專業的視覺緩衝區。</p>
+                        <h4 class="text-blue-400 font-bold text-sm" class="mt-4">關於羽化去背 (Feathering)</h4>
+                        <p>一般的去背工具僅進行 0 或 1 的 Alpha 切換，導致邊緣鋸齒嚴重。Sticker Studio Pro V1.6 採用顏色漸變演算，在接近背景色的邊緣給予半透明度處理，讓貼圖能更自然地融入各種深淺色的對話框。</p>
                     </div>
-                    <div class="space-y-2">
-                        <h4 class="text-blue-400 font-bold text-sm">Q：輸出長寬比會影響邊距嗎？</h4>
-                        <p class="text-slate-400 text-xs leading-relaxed">A：不論您設定的是正方形還是長方形，3% 邊距會依據較長的那一邊進行計算，確保四周都有安全間隔。</p>
-                    </div>
-                    <div class="space-y-2">
-                        <h4 class="text-blue-400 font-bold text-sm">Q：畫面顯示「非法分析」？</h4>
-                        <p class="text-slate-400 text-xs leading-relaxed">A：本工具內建安全防護，若您開啟「開發者模式 (F12)」會導致介面鎖定。請關閉 F12 並重新整理網頁即可恢復。</p>
-                    </div>
-                    <div class="space-y-2">
-                        <h4 class="text-blue-400 font-bold text-sm">Q：輸出的最大極限是多少？</h4>
-                        <p class="text-slate-400 text-xs leading-relaxed">A：目前設定最大輸出為 2048x2048 PX，滿足高畫質匯出的所有場景。</p>
+                    <div class="space-y-4">
+                        <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
+                            <h4 class="text-white font-bold text-sm mb-2 flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i> 隱私安全政策</h4>
+                            <p class="text-slate-400 text-[11px] leading-relaxed">Sticker Studio Pro 是一款純前端工具。您的所有圖片都在本機裝置（RAM）內進行處理與裁切，我們不會、也無法將您的創作上傳至任何雲端伺服器。這保證了您未公開作品的商業機密安全。</p>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="text-blue-400 font-bold text-sm">Q：輸出的最大極限是多少？</h4>
+                            <p class="text-slate-400 text-xs leading-relaxed">A：目前設定最大輸出為 1024x1024 PX，已滿足高畫質貼圖匯出的所有場景需求。</p>
+                        </div>
                     </div>
                 </div>
             </div>
             
             <div class="text-center text-[10px] text-slate-600 uppercase tracking-widest font-bold">
-                FoxSticker 創作者工具系列 · Sticker Studio Pro V1.5.1
+                FoxSticker 創作者工具系列 · Sticker Studio Pro V1.6.0
             </div>
         </footer>
     </div>
 
     <script>
         (function(_0x_main_scope, _0x_reserved){
+            // 彈性網域檢查
             const _0x_domain_check = function(){
                 const _0x_current_host = window['location']['hostname'];
-                const _0x_allowed_hosts = ['localhost', '127.0.0.1', 'harrychen222.github.io'];
+                // 建議：將新買的網域加入此陣列
+                const _0x_allowed_hosts = ['localhost', '127.0.0.1', 'harrychen222.github.io', 'your-new-domain.com'];
                 if(!_0x_allowed_hosts['includes'](_0x_current_host) && !_0x_current_host['endsWith']('.goog')){
                     document['getElementById']('security-lock')['classList']['remove']('hidden');
                     return false;
@@ -259,32 +268,23 @@
             _0x_el_out_w['onchange'] = () => { _0x_state.out_w = parseInt(_0x_el_out_w.value) || 320; _0x_update_pre(); };
             _0x_el_out_h['onchange'] = () => { _0x_state.out_h = parseInt(_0x_el_out_h.value) || 320; _0x_update_pre(); };
 
-            function _0x_draw_lines(){
-                if(!_0x_state.img_obj) return;
-                const w = _0x_el_main['clientWidth'], h = _0x_el_main['clientHeight'], l = _0x_el_main['offsetLeft'], t = _0x_el_main['offsetTop'];
-                let htm = '';
-                _0x_state.v_lines['forEach']((p, i) => {
-                    const x = l + w * p;
-                    htm += `<g class="col-resize" onmousedown="window._0x_start_drag('${i}','v',event)"><line x1="${x}" y1="${t}" x2="${x}" y2="${t+h}" class="grid-line-hitbox" /><line x1="${x}" y1="${t}" x2="${x}" y2="${t+h}" class="grid-line" /></g>`;
-                });
-                _0x_state.h_lines['forEach']((p, i) => {
-                    const y = t + h * p;
-                    htm += `<g class="row-resize" onmousedown="window._0x_start_drag('${i}','h',event)"><line x1="${l}" y1="${y}" x2="${l+w}" y2="${y}" class="grid-line-hitbox" /><line x1="${l}" y1="${y}" x2="${l+w}" y2="${y}" class="grid-line" /></g>`;
-                });
-                _0x_el_grid['innerHTML'] = htm;
-            }
-
+            // 支援行動端觸控
             window._0x_start_drag = (idx, type, ev) => {
+                ev['preventDefault'](); // 防止滾動
                 ev['stopPropagation']();
                 _0x_state.active_l = {'t':type, 'i':idx};
-                document['addEventListener']('mousemove', _0x_moving);
-                document['addEventListener']('mouseup', _0x_stop_drag);
+                const moveEv = ev.type.startsWith('touch') ? 'touchmove' : 'mousemove';
+                const endEv = ev.type.startsWith('touch') ? 'touchend' : 'mouseup';
+                document['addEventListener'](moveEv, _0x_moving, {passive: false});
+                document['addEventListener'](endEv, _0x_stop_drag);
             };
 
             const _0x_moving = (e) => {
                 if(!_0x_state.active_l) return;
                 const r = _0x_el_main['getBoundingClientRect']();
-                const v = Math['max'](0.01, Math['min'](0.99, _0x_state.active_l['t'] === 'v' ? (e['clientX'] - r['left']) / r['width'] : (e['clientY'] - r['top']) / r['height']));
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                const v = Math['max'](0.01, Math['min'](0.99, _0x_state.active_l['t'] === 'v' ? (clientX - r['left']) / r['width'] : (clientY - r['top']) / r['height']));
                 if(_0x_state.active_l['t'] === 'v'){
                     _0x_state.v_lines[_0x_state.active_l['i']] = v;
                     _0x_state.v_lines['sort']((a, b) => a - b);
@@ -296,11 +296,28 @@
                 _0x_update_pre();
             };
 
-            const _0x_stop_drag = () => {
+            const _0x_stop_drag = (e) => {
                 _0x_state.active_l = null;
                 document['removeEventListener']('mousemove', _0x_moving);
+                document['removeEventListener']('touchmove', _0x_moving);
                 document['removeEventListener']('mouseup', _0x_stop_drag);
+                document['removeEventListener']('touchend', _0x_stop_drag);
             };
+
+            function _0x_draw_lines(){
+                if(!_0x_state.img_obj) return;
+                const w = _0x_el_main['clientWidth'], h = _0x_el_main['clientHeight'], l = _0x_el_main['offsetLeft'], t = _0x_el_main['offsetTop'];
+                let htm = '';
+                _0x_state.v_lines['forEach']((p, i) => {
+                    const x = l + w * p;
+                    htm += `<g class="col-resize" onmousedown="window._0x_start_drag('${i}','v',event)" ontouchstart="window._0x_start_drag('${i}','v',event)"><line x1="${x}" y1="${t}" x2="${x}" y2="${t+h}" class="grid-line-hitbox" /><line x1="${x}" y1="${t}" x2="${x}" y2="${t+h}" class="grid-line" /></g>`;
+                });
+                _0x_state.h_lines['forEach']((p, i) => {
+                    const y = t + h * p;
+                    htm += `<g class="row-resize" onmousedown="window._0x_start_drag('${i}','h',event)" ontouchstart="window._0x_start_drag('${i}','h',event)"><line x1="${l}" y1="${y}" x2="${l+w}" y2="${y}" class="grid-line-hitbox" /><line x1="${l}" y1="${y}" x2="${l+w}" y2="${y}" class="grid-line" /></g>`;
+                });
+                _0x_el_grid['innerHTML'] = htm;
+            }
 
             _0x_el_grid['addEventListener']('click', (e) => {
                 if(_0x_state.active_l || !_0x_state.img_obj) return;
@@ -340,25 +357,34 @@
                 
                 const mctx = _0x_el_mini['getContext']('2d');
                 mctx['clearRect'](0, 0, 120, 120);
-                
                 const fimg = new Image();
                 fimg['onload'] = () => mctx['drawImage'](fimg, 0, 0);
                 fimg['src'] = _0x_smart_fit(tmp, 120, 120);
             }
 
+            // 優化去背：引入 10px 的羽化範圍
             function _0x_apply_alpha(canv){
                 const ctx = canv['getContext']('2d');
                 const d = ctx['getImageData'](0, 0, canv['width'], canv['height']);
                 const {r, g, b} = _0x_state.bg_rgb;
                 const t = _0x_state.tol;
+                const feather = 10; // 羽化範圍
+
                 for(let i=0; i < d['data']['length']; i += 4){
                     const dr = d['data'][i] - r, dg = d['data'][i+1] - g, db = d['data'][i+2] - b;
-                    if(Math['sqrt'](dr * dr + dg * dg + db * db) < t) d['data'][i+3] = 0;
+                    const dist = Math['sqrt'](dr * dr + dg * dg + db * db);
+                    
+                    if(dist < t) {
+                        d['data'][i+3] = 0;
+                    } else if(dist < t + feather) {
+                        // 羽化邏輯：計算過渡 Alpha
+                        const alphaRatio = (dist - t) / feather;
+                        d['data'][i+3] = Math.floor(alphaRatio * 255);
+                    }
                 }
                 ctx['putImageData'](d, 0, 0);
             }
 
-            // 安全邊距調整為 3% (內容佔比 97%)
             function _0x_smart_fit(canv, targetW=320, targetH=320){
                 const ctx = canv['getContext']('2d');
                 const d = ctx['getImageData'](0, 0, canv['width'], canv['height'])['data'];
@@ -373,16 +399,11 @@
                     }
                 }
                 if(!f) return canv['toDataURL']('image/png');
-                
-                const o = document['createElement']('canvas'); 
-                o['width'] = targetW; o['height'] = targetH;
+                const o = document['createElement']('canvas'); o['width'] = targetW; o['height'] = targetH;
                 const oct = o['getContext']('2d');
                 const cw = x1 - x0 + 1, ch = y1 - y0 + 1;
-                
-                // 改為 0.97 (留白 3%)
                 const sc = Math['min']((targetW * 0.97) / cw, (targetH * 0.97) / ch);
                 const fw = cw * sc, fh = ch * sc;
-                
                 oct['drawImage'](canv, x0, y0, cw, ch, (targetW - fw) / 2, (targetH - fh) / 2, fw, fh);
                 return o['toDataURL']('image/png');
             }
