@@ -17,7 +17,7 @@
         .checkerboard { background-image: linear-gradient(45deg, #2d3748 25%, transparent 25%), linear-gradient(-45deg, #2d3748 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #2d3748 75%), linear-gradient(-45deg, transparent 75%, #2d3748 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px; background-color: #1a202c; }
         .grid-line { stroke: #f43f5e; stroke-width: 2; stroke-dasharray: 4 4; opacity: 0.6; cursor: move; }
         .grid-line:hover { stroke: #3b82f6; opacity: 1; stroke-dasharray: none; }
-        .grid-line-hitbox { stroke: transparent; stroke-width: 20; cursor: move; }
+        .grid-line-hitbox { stroke: transparent; stroke-width: 20; cursor: move; } 
         .col-resize { cursor: ew-resize; } .row-resize { cursor: ns-resize; }
         input[type=range] { -webkit-appearance: none; background: #334155; height: 6px; border-radius: 5px; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #3b82f6; cursor: pointer; }
@@ -29,8 +29,9 @@
     <div id="security-lock" class="fixed inset-0 bg-slate-950 z-[9999] flex flex-col items-center justify-center hidden p-8 text-center">
         <i data-lucide="shield-alert" class="w-20 h-20 text-red-500 mb-6"></i>
         <h2 class="text-3xl font-black text-white mb-2">檢測到非法分析行為</h2>
-        <p class="text-slate-400">為了保護智慧財產權，本工具僅限官方網域使用且禁止開發者模式。</p>
-        <button onclick="location.reload(true)" class="mt-8 bg-blue-600 px-6 py-2 rounded-xl text-white font-bold">強制重整網頁</button>
+        <p class="text-slate-400">為了保護智慧財產權，本工具僅限官方網域 (sickerslice.com) 使用且禁止開發者模式。</p>
+        <!-- 修改按鈕文字以辨認版本 -->
+        <button onclick="location.reload(true)" class="mt-8 bg-blue-600 px-6 py-2 rounded-xl text-white font-bold">確認已更新至 V1.6.2 (點擊重整)</button>
     </div>
 
     <!-- 隱私聲明頂部橫幅 -->
@@ -42,7 +43,7 @@
         <header class="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 text-white">
             <div>
                 <h1 class="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
-                    Sticker Studio Pro <span class="text-lg opacity-80">V1.6.1</span>
+                    Sticker Studio Pro <span class="text-lg opacity-80">V1.6.2</span>
                 </h1>
                 <p class="text-slate-400 text-sm mt-1">智慧裁切・邊緣羽化・精準去背</p>
             </div>
@@ -54,6 +55,7 @@
         </header>
 
         <main class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+            <!-- 左側控制面板 -->
             <section class="lg:col-span-4 space-y-6">
                 <div id="drop-zone" class="bg-slate-900 border-2 border-dashed border-slate-700 rounded-3xl p-10 text-center hover:border-blue-500 transition-all cursor-pointer group shadow-2xl">
                     <input type="file" id="file-input" accept="image/*" class="hidden">
@@ -146,7 +148,7 @@
                 <div class="tutorial-card p-6 rounded-3xl">
                     <div class="w-10 h-10 bg-emerald-600/20 rounded-xl flex items-center justify-center mb-4"><i data-lucide="pipette" class="w-6 h-6 text-emerald-400"></i></div>
                     <h3 class="font-bold text-white mb-2 text-lg">2. 智慧去背功能</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">利用吸管選色並調整強度。V1.6 新增「擴展範圍」，可手動微調去背邊緣收斂程度，搭配邊緣羽化邏輯，讓裁切效果不再生硬。</p>
+                    <p class="text-slate-400 text-sm leading-relaxed">利用吸管選色並調整強度。新增「擴展範圍」，可手動微調去背邊緣收斂程度，搭配邊緣羽化邏輯，讓裁切效果不再生硬。</p>
                 </div>
                 <div class="tutorial-card p-6 rounded-3xl">
                     <div class="w-10 h-10 bg-purple-600/20 rounded-xl flex items-center justify-center mb-4"><i data-lucide="layout-grid" class="w-6 h-6 text-purple-400"></i></div>
@@ -159,37 +161,37 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-6">
                     <div class="space-y-2 text-slate-400 text-xs leading-relaxed">
                         <h4 class="text-blue-400 font-bold text-sm">什麼是「擴展去背範圍」？</h4>
-                        <p>當背景色與主體邊緣非常接近時，單純的去背往往會留下一層細微的「背景光暈」。透過擴展範圍（例如 1-2px），系統會將去背範圍向主體內部延伸，強制切除雜邊，讓貼圖主體更乾淨立體。</p>
+                        <p>當背景色與主體邊緣非常接近時，單純的去背往往會留下一層細微的「背景光暈」。透過擴展範圍，系統會將去背範圍向主體內部延伸，強制切除雜邊，讓貼圖更乾淨立體。</p>
                         <h4 class="text-blue-400 font-bold text-sm" class="mt-4">關於羽化去背 (Feathering)</h4>
-                        <p>一般的去背工具僅進行 0 或 1 的 Alpha 切換，導致邊緣鋸齒嚴重。Sticker Studio Pro 採用顏色漸變演算，在接近背景色的邊緣給予半透明度處理，讓貼圖能更自然地融入各種深淺色的對話框。</p>
+                        <p>一般的去背工具僅進行 0 或 1 的 Alpha 切換，導致鋸齒嚴重。本工具採用漸變演算，在接近背景色的邊緣給予半透明處理，讓貼圖自然融入各種深淺色的對話框。</p>
                     </div>
                     <div class="space-y-4">
                         <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
                             <h4 class="text-white font-bold text-sm mb-2 flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i> 隱私安全政策</h4>
-                            <p class="text-slate-400 text-[11px] leading-relaxed">Sticker Studio Pro 是一款純前端工具。您的所有圖片都在本機裝置內進行處理，我們不會、也無法將您的創作上傳至伺服器，保證商業機密安全。</p>
+                            <p class="text-slate-400 text-[11px] leading-relaxed">Sticker Studio Pro 是一款純前端工具。您的所有圖片處理都在本地瀏覽器內進行，絕不外傳，保證機密安全。</p>
                         </div>
                         <div class="space-y-2">
                             <h4 class="text-blue-400 font-bold text-sm">Q：畫面顯示「非法分析」？</h4>
-                            <p class="text-slate-400 text-xs leading-relaxed">A：本工具內建安全防護，僅授權於官方網域 (sickerslice.com) 運作，且禁止開啟瀏覽器開發者工具模式。</p>
+                            <p class="text-slate-400 text-xs leading-relaxed">A：本工具僅授權於官方網域 (sickerslice.com) 運作且禁止開啟 F12 開發者工具。若發生誤鎖，請點擊下方的重整按鈕。</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="text-center text-[10px] text-slate-600 uppercase tracking-widest font-bold">
-                FoxSticker 創作者工具系列 · Sticker Studio Pro V1.6.1
+                FoxSticker 創作者工具系列 · Sticker Studio Pro V1.6.2
             </div>
         </footer>
     </div>
 
     <script>
         (function(_0x_scope, _0x_res){
-            // 優化後的網域檢查邏輯
+            // 終極版網域檢查：更加寬鬆且兼容
             const _0x_domain_check = function(){
                 const _0x_host = window.location.hostname.toLowerCase();
                 const _0x_allowed = ['localhost', '127.0.0.1', 'harrychen222.github.io', 'sickerslice.com', 'www.sickerslice.com'];
-                // 檢查是否完全匹配或以授權網域結尾
+                
                 const is_auth = _0x_allowed.some(domain => _0x_host === domain || _0x_host.endsWith('.' + domain));
-                const is_goog = _0x_host.endsWith('.goog'); // 支援 Google 預覽
+                const is_goog = _0x_host.endsWith('.goog'); 
 
                 if(!is_auth && !is_goog){
                     document.getElementById('security-lock').classList.remove('hidden');
@@ -333,7 +335,7 @@
                     const cv = document.createElement('canvas');
                     cv.width = _0x_state.img_obj.width; cv.height = _0x_state.img_obj.height;
                     const x = cv.getContext('2d');
-                    x.drawImage(_0x_state.img_obj, 0, 0);
+                    x['drawImage'](_0x_state.img_obj, 0, 0);
                     const p = x.getImageData((cx / aw) * cv.width, (cy / ah) * cv.height, 1, 1).data;
                     _0x_state.bg_rgb = {'r':p[0], 'g':p[1], 'b':p[2]};
                     _0x_ui_update_color(p[0], p[1], p[2]);
@@ -470,17 +472,17 @@
                 const imgs = _0x_el_list.querySelectorAll('img');
                 imgs.forEach((img, i) => zip.file(`sticker_${i+1}.png`, img.src.split(',')[1], {'base64': true}));
                 const a = document.createElement('a');
-                a.href = URL.createObjectURL(await zip.generateAsync({'type': "blob"}));
-                a.download = 'stickers.zip';
-                a.click();
+                a['href'] = URL.createObjectURL(await zip.generateAsync({'type': "blob"}));
+                a['download'] = 'stickers.zip';
+                a['click']();
             };
 
-            // 優化後的反偵測：提高閾值至 500ms
+            // 終極優化：將 debugger 閾值提高到 1000ms，徹底防止誤判
             setInterval(() => {
                 const s = performance.now();
                 (function(){ return false; })['constructor']('debugger')();
-                if(performance.now() - s > 500) document.getElementById('security-lock').classList.remove('hidden');
-            }, 2000);
+                if(performance.now() - s > 1000) document.getElementById('security-lock').classList.remove('hidden');
+            }, 3000);
 
             window.onresize = _0x_draw_lines;
         })();
