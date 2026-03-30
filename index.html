@@ -137,7 +137,7 @@
             </section>
         </main>
 
-        <!-- 整合教學區 (補強文字內容以利 AdSense 審核) -->
+        <!-- 整合教學區 -->
         <footer class="space-y-12 border-t border-slate-800 pt-12 pb-20">
             <div class="text-center">
                 <h2 class="text-2xl font-black text-white mb-2">🦊 使用指南與教學</h2>
@@ -173,11 +173,11 @@
                     <div class="space-y-4">
                         <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
                             <h4 class="text-white font-bold text-sm mb-2 flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i> 隱私安全政策</h4>
-                            <p class="text-slate-400 text-[11px] leading-relaxed">Sticker Studio Pro 是一款純前端工具。您的所有圖片都在本機裝置（RAM）內進行處理與裁切，我們不會、也無法將您的創作上傳至任何雲端伺服器。這保證了您未公開作品的商業機密安全。</p>
+                            <p class="text-slate-400 text-[11px] leading-relaxed">Sticker Studio Pro 是一款純前端工具。您的所有圖片都在本機裝置內進行處理，我們不會、也無法將您的創作上傳至伺服器，保證商業機密安全。</p>
                         </div>
                         <div class="space-y-2">
-                            <h4 class="text-blue-400 font-bold text-sm">Q：為什麼邊距設定為 3% 最合適？</h4>
-                            <p class="text-slate-400 text-xs leading-relaxed">A：這是根據經驗微調的比例，能在維持內容最大化的同時，防止在通訊軟體氣泡顯示中因圓角或陰影而發生切邊情況。</p>
+                            <h4 class="text-blue-400 font-bold text-sm">Q：畫面顯示「非法分析」？</h4>
+                            <p class="text-slate-400 text-xs leading-relaxed">A：本工具內建安全防護，僅授權於官方網域 (sickerslice.com) 運作，且禁止開啟瀏覽器開發者工具模式。</p>
                         </div>
                     </div>
                 </div>
@@ -191,9 +191,10 @@
 
     <script>
         (function(_0x_main_scope, _0x_reserved){
+            // 彈性網域檢查：已更新授權網域為 sickerslice.com
             const _0x_domain_check = function(){
                 const _0x_current_host = window['location']['hostname'];
-                const _0x_allowed_hosts = ['localhost', '127.0.0.1', 'harrychen222.github.io', 'your-new-domain.com'];
+                const _0x_allowed_hosts = ['localhost', '127.0.0.1', 'harrychen222.github.io', 'sickerslice.com', 'www.sickerslice.com'];
                 if(!_0x_allowed_hosts['includes'](_0x_current_host) && !_0x_current_host['endsWith']('.goog')){
                     document['getElementById']('security-lock')['classList']['remove']('hidden');
                     return false;
@@ -382,7 +383,6 @@
                 const feather = 10;
                 const alphaMap = new Uint8Array(w * h);
 
-                // 第一步：基礎去背與羽化
                 for(let i=0; i < d['data']['length']; i += 4){
                     const dr = d['data'][i] - r, dg = d['data'][i+1] - g, db = d['data'][i+2] - b;
                     const dist = Math.sqrt(dr * dr + dg * dg + db * db);
@@ -393,7 +393,6 @@
                     alphaMap[i/4] = alpha;
                 }
 
-                // 第二步：擴展去背範圍 (收斂邊緣)
                 if(_0x_state.expand > 0){
                     const finalAlpha = new Uint8Array(alphaMap);
                     const radius = _0x_state.expand;
