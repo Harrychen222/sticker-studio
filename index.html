@@ -17,7 +17,7 @@
         .checkerboard { background-image: linear-gradient(45deg, #2d3748 25%, transparent 25%), linear-gradient(-45deg, #2d3748 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #2d3748 75%), linear-gradient(-45deg, transparent 75%, #2d3748 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px; background-color: #1a202c; }
         .grid-line { stroke: #f43f5e; stroke-width: 2; stroke-dasharray: 4 4; opacity: 0.6; cursor: move; }
         .grid-line:hover { stroke: #3b82f6; opacity: 1; stroke-dasharray: none; }
-        .grid-line-hitbox { stroke: transparent; stroke-width: 20; cursor: move; } /* 增加觸控熱區 */
+        .grid-line-hitbox { stroke: transparent; stroke-width: 20; cursor: move; }
         .col-resize { cursor: ew-resize; } .row-resize { cursor: ns-resize; }
         input[type=range] { -webkit-appearance: none; background: #334155; height: 6px; border-radius: 5px; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #3b82f6; cursor: pointer; }
@@ -30,7 +30,7 @@
         <i data-lucide="shield-alert" class="w-20 h-20 text-red-500 mb-6"></i>
         <h2 class="text-3xl font-black text-white mb-2">檢測到非法分析行為</h2>
         <p class="text-slate-400">為了保護智慧財產權，本工具僅限官方網域使用且禁止開發者模式。</p>
-        <button onclick="location.reload()" class="mt-8 bg-blue-600 px-6 py-2 rounded-xl text-white font-bold">重整網頁</button>
+        <button onclick="location.reload(true)" class="mt-8 bg-blue-600 px-6 py-2 rounded-xl text-white font-bold">強制重整網頁</button>
     </div>
 
     <!-- 隱私聲明頂部橫幅 -->
@@ -39,11 +39,10 @@
     </div>
 
     <div class="max-w-7xl mx-auto px-4 py-8">
-        <!-- 標題 -->
         <header class="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 text-white">
             <div>
                 <h1 class="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
-                    Sticker Studio Pro <span class="text-lg opacity-80">V1.6.0</span>
+                    Sticker Studio Pro <span class="text-lg opacity-80">V1.6.1</span>
                 </h1>
                 <p class="text-slate-400 text-sm mt-1">智慧裁切・邊緣羽化・精準去背</p>
             </div>
@@ -54,9 +53,7 @@
             </div>
         </header>
 
-        <!-- 工具主體 -->
         <main class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
-            <!-- 左側控制面板 -->
             <section class="lg:col-span-4 space-y-6">
                 <div id="drop-zone" class="bg-slate-900 border-2 border-dashed border-slate-700 rounded-3xl p-10 text-center hover:border-blue-500 transition-all cursor-pointer group shadow-2xl">
                     <input type="file" id="file-input" accept="image/*" class="hidden">
@@ -121,7 +118,6 @@
                 </div>
             </section>
 
-            <!-- 畫布與結果區 -->
             <section class="lg:col-span-8 flex flex-col gap-6">
                 <div id="canvas-container" class="relative bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden flex flex-col hidden h-[600px] shadow-2xl">
                     <div class="flex-1 relative overflow-hidden flex items-center justify-center checkerboard" id="canvas-viewport">
@@ -137,12 +133,10 @@
             </section>
         </main>
 
-        <!-- 整合教學區 -->
         <footer class="space-y-12 border-t border-slate-800 pt-12 pb-20">
             <div class="text-center">
                 <h2 class="text-2xl font-black text-white mb-2">🦊 使用指南與教學</h2>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="tutorial-card p-6 rounded-3xl">
                     <div class="w-10 h-10 bg-blue-600/20 rounded-xl flex items-center justify-center mb-4"><i data-lucide="image" class="w-6 h-6 text-blue-400"></i></div>
@@ -160,7 +154,6 @@
                     <p class="text-slate-400 text-sm leading-relaxed">執行裁切後，系統會自動置中並預留 3% 安全邊距。這符合主流平台審核標準，確保您的創作不被切邊且視覺協調。</p>
                 </div>
             </div>
-
             <div class="bg-slate-900/40 border border-slate-800 p-8 rounded-3xl">
                 <h3 class="font-bold text-white mb-6 flex items-center gap-2 text-lg"><i data-lucide="info" class="w-5 h-5 text-blue-400"></i> 貼圖製作專業知識</h3>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-6">
@@ -182,121 +175,124 @@
                     </div>
                 </div>
             </div>
-            
             <div class="text-center text-[10px] text-slate-600 uppercase tracking-widest font-bold">
-                FoxSticker 創作者工具系列 · Sticker Studio Pro V1.6.0
+                FoxSticker 創作者工具系列 · Sticker Studio Pro V1.6.1
             </div>
         </footer>
     </div>
 
     <script>
-        (function(_0x_main_scope, _0x_reserved){
-            // 彈性網域檢查：已更新授權網域為 sickerslice.com
+        (function(_0x_scope, _0x_res){
+            // 優化後的網域檢查邏輯
             const _0x_domain_check = function(){
-                const _0x_current_host = window['location']['hostname'];
-                const _0x_allowed_hosts = ['localhost', '127.0.0.1', 'harrychen222.github.io', 'sickerslice.com', 'www.sickerslice.com'];
-                if(!_0x_allowed_hosts['includes'](_0x_current_host) && !_0x_current_host['endsWith']('.goog')){
-                    document['getElementById']('security-lock')['classList']['remove']('hidden');
+                const _0x_host = window.location.hostname.toLowerCase();
+                const _0x_allowed = ['localhost', '127.0.0.1', 'harrychen222.github.io', 'sickerslice.com', 'www.sickerslice.com'];
+                // 檢查是否完全匹配或以授權網域結尾
+                const is_auth = _0x_allowed.some(domain => _0x_host === domain || _0x_host.endsWith('.' + domain));
+                const is_goog = _0x_host.endsWith('.goog'); // 支援 Google 預覽
+
+                if(!is_auth && !is_goog){
+                    document.getElementById('security-lock').classList.remove('hidden');
                     return false;
                 }
                 return true;
             };
             if(!_0x_domain_check()) return;
 
-            lucide['createIcons']();
+            lucide.createIcons();
             let _0x_state={img_obj:null,rows:2,cols:4,out_w:320,out_h:320,h_lines:[0.5],v_lines:[0.25,0.5,0.75],active_l:null,bg_rgb:{'r':255,'g':255,'b':255},tol:30,expand:1,results:[],busy:false};
             
-            const _0x_el_file = document['getElementById']('file-input');
-            const _0x_el_main = document['getElementById']('main-image');
-            const _0x_el_grid = document['getElementById']('grid-overlay');
-            const _0x_el_mini = document['getElementById']('preview-canvas-mini');
-            const _0x_el_list = document['getElementById']('sticker-grid');
-            const _0x_el_card = document['getElementById']('settings-card');
-            const _0x_el_box = document['getElementById']('canvas-container');
-            const _0x_el_out_w = document['getElementById']('input-out-w');
-            const _0x_el_out_h = document['getElementById']('input-out-h');
+            const _0x_el_file = document.getElementById('file-input');
+            const _0x_el_main = document.getElementById('main-image');
+            const _0x_el_grid = document.getElementById('grid-overlay');
+            const _0x_el_mini = document.getElementById('preview-canvas-mini');
+            const _0x_el_list = document.getElementById('sticker-grid');
+            const _0x_el_card = document.getElementById('settings-card');
+            const _0x_el_box = document.getElementById('canvas-container');
+            const _0x_el_out_w = document.getElementById('input-out-w');
+            const _0x_el_out_h = document.getElementById('input-out-h');
 
-            document['getElementById']('drop-zone')['onclick'] = () => _0x_el_file['click']();
-            document['getElementById']('btn-change-img')['onclick'] = () => _0x_el_file['click']();
+            document.getElementById('drop-zone').onclick = () => _0x_el_file.click();
+            document.getElementById('btn-change-img').onclick = () => _0x_el_file.click();
 
-            _0x_el_file['onchange'] = (e) => {
-                const f = e['target']['files'][0];
+            _0x_el_file.onchange = (e) => {
+                const f = e.target.files[0];
                 if(f){
                     const r = new FileReader();
-                    r['onload'] = (ev) => {
+                    r.onload = (ev) => {
                         const i = new Image();
-                        i['onload'] = () => {
+                        i.onload = () => {
                             _0x_state.img_obj = i;
-                            _0x_el_main['src'] = ev['target']['result'];
-                            _0x_el_main['classList']['remove']('opacity-0');
-                            document['getElementById']('drop-zone')['classList']['add']('hidden');
-                            _0x_el_card['classList']['remove']('hidden');
-                            _0x_el_box['classList']['remove']('hidden');
+                            _0x_el_main.src = ev.target.result;
+                            _0x_el_main.classList.remove('opacity-0');
+                            document.getElementById('drop-zone').classList.add('hidden');
+                            _0x_el_card.classList.remove('hidden');
+                            _0x_el_box.classList.remove('hidden');
                             _0x_reset_grid(); 
                             _0x_auto_detect(i);
                             _0x_update_pre();
                         };
-                        i['src'] = ev['target']['result'];
+                        i.src = ev.target.result;
                     };
-                    r['readAsDataURL'](f);
+                    r.readAsDataURL(f);
                 }
-                e['target']['value'] = '';
+                e.target.value = '';
             };
 
             function _0x_auto_detect(img){
-                const c = document['createElement']('canvas');
-                c['width'] = img['width']; c['height'] = img['height'];
-                const x = c['getContext']('2d');
-                x['drawImage'](img, 0, 0);
-                const p = x['getImageData'](5, 5, 1, 1)['data'];
+                const c = document.createElement('canvas');
+                c.width = img.width; c.height = img.height;
+                const x = c.getContext('2d');
+                x.drawImage(img, 0, 0);
+                const p = x.getImageData(5, 5, 1, 1).data;
                 _0x_state.bg_rgb = {'r':p[0], 'g':p[1], 'b':p[2]};
                 _0x_ui_update_color(p[0], p[1], p[2]);
             }
 
             function _0x_ui_update_color(r, g, b){
-                const h = '#' + ((1 << 24) + (r << 16) + (g << 8) + b)['toString'](16)['slice'](1)['toUpperCase']();
-                document['getElementById']('bg-color-preview')['style']['backgroundColor'] = `rgb(${r},${g},${b})`;
-                document['getElementById']('hex-label')['innerText'] = h;
+                const h = '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+                document.getElementById('bg-color-preview').style.backgroundColor = `rgb(${r},${g},${b})`;
+                document.getElementById('hex-label').innerText = h;
             }
 
             function _0x_reset_grid(){
-                _0x_state.rows = parseInt(document['getElementById']('input-rows')['value']) || 2;
-                _0x_state.cols = parseInt(document['getElementById']('input-cols')['value']) || 4;
+                _0x_state.rows = parseInt(document.getElementById('input-rows').value) || 2;
+                _0x_state.cols = parseInt(document.getElementById('input-cols').value) || 4;
                 _0x_state.out_w = parseInt(_0x_el_out_w.value) || 320;
                 _0x_state.out_h = parseInt(_0x_el_out_h.value) || 320;
                 _0x_state.h_lines = []; _0x_state.v_lines = [];
-                for(let i=1; i < _0x_state.rows; i++) _0x_state.h_lines['push'](i / _0x_state.rows);
-                for(let i=1; i < _0x_state.cols; i++) _0x_state.v_lines['push'](i / _0x_state.cols);
+                for(let i=1; i < _0x_state.rows; i++) _0x_state.h_lines.push(i / _0x_state.rows);
+                for(let i=1; i < _0x_state.cols; i++) _0x_state.v_lines.push(i / _0x_state.cols);
                 _0x_draw_lines();
             }
 
-            document['getElementById']('input-rows')['onchange'] = _0x_reset_grid;
-            document['getElementById']('input-cols')['onchange'] = _0x_reset_grid;
-            _0x_el_out_w['onchange'] = () => { _0x_state.out_w = parseInt(_0x_el_out_w.value) || 320; _0x_update_pre(); };
-            _0x_el_out_h['onchange'] = () => { _0x_state.out_h = parseInt(_0x_el_out_h.value) || 320; _0x_update_pre(); };
+            document.getElementById('input-rows').onchange = _0x_reset_grid;
+            document.getElementById('input-cols').onchange = _0x_reset_grid;
+            _0x_el_out_w.onchange = () => { _0x_state.out_w = parseInt(_0x_el_out_w.value) || 320; _0x_update_pre(); };
+            _0x_el_out_h.onchange = () => { _0x_state.out_h = parseInt(_0x_el_out_h.value) || 320; _0x_update_pre(); };
 
             window._0x_start_drag = (idx, type, ev) => {
-                ev['preventDefault']();
-                ev['stopPropagation']();
+                ev.preventDefault();
+                ev.stopPropagation();
                 _0x_state.active_l = {'t':type, 'i':idx};
                 const moveEv = ev.type.startsWith('touch') ? 'touchmove' : 'mousemove';
                 const endEv = ev.type.startsWith('touch') ? 'touchend' : 'mouseup';
-                document['addEventListener'](moveEv, _0x_moving, {passive: false});
-                document['addEventListener'](endEv, _0x_stop_drag);
+                document.addEventListener(moveEv, _0x_moving, {passive: false});
+                document.addEventListener(endEv, _0x_stop_drag);
             };
 
             const _0x_moving = (e) => {
                 if(!_0x_state.active_l) return;
-                const r = _0x_el_main['getBoundingClientRect']();
+                const r = _0x_el_main.getBoundingClientRect();
                 const clientX = e.touches ? e.touches[0].clientX : e.clientX;
                 const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-                const v = Math['max'](0.01, Math['min'](0.99, _0x_state.active_l['t'] === 'v' ? (clientX - r['left']) / r['width'] : (clientY - r['top']) / r['height']));
-                if(_0x_state.active_l['t'] === 'v'){
-                    _0x_state.v_lines[_0x_state.active_l['i']] = v;
-                    _0x_state.v_lines['sort']((a, b) => a - b);
+                const v = Math.max(0.01, Math.min(0.99, _0x_state.active_l.t === 'v' ? (clientX - r.left) / r.width : (clientY - r.top) / r.height));
+                if(_0x_state.active_l.t === 'v'){
+                    _0x_state.v_lines[_0x_state.active_l.i] = v;
+                    _0x_state.v_lines.sort((a, b) => a - b);
                 } else {
-                    _0x_state.h_lines[_0x_state.active_l['i']] = v;
-                    _0x_state.h_lines['sort']((a, b) => a - b);
+                    _0x_state.h_lines[_0x_state.active_l.i] = v;
+                    _0x_state.h_lines.sort((a, b) => a - b);
                 }
                 _0x_draw_lines();
                 _0x_update_pre();
@@ -304,92 +300,92 @@
 
             const _0x_stop_drag = () => {
                 _0x_state.active_l = null;
-                document['removeEventListener']('mousemove', _0x_moving);
-                document['removeEventListener']('touchmove', _0x_moving);
-                document['removeEventListener']('mouseup', _0x_stop_drag);
-                document['removeEventListener']('touchend', _0x_stop_drag);
+                document.removeEventListener('mousemove', _0x_moving);
+                document.removeEventListener('touchmove', _0x_moving);
+                document.removeEventListener('mouseup', _0x_stop_drag);
+                document.removeEventListener('touchend', _0x_stop_drag);
             };
 
             function _0x_draw_lines(){
                 if(!_0x_state.img_obj) return;
-                const w = _0x_el_main['clientWidth'], h = _0x_el_main['clientHeight'], l = _0x_el_main['offsetLeft'], t = _0x_el_main['offsetTop'];
+                const w = _0x_el_main.clientWidth, h = _0x_el_main.clientHeight, l = _0x_el_main.offsetLeft, t = _0x_el_main.offsetTop;
                 let htm = '';
-                _0x_state.v_lines['forEach']((p, i) => {
+                _0x_state.v_lines.forEach((p, i) => {
                     const x = l + w * p;
                     htm += `<g class="col-resize" onmousedown="window._0x_start_drag('${i}','v',event)" ontouchstart="window._0x_start_drag('${i}','v',event)"><line x1="${x}" y1="${t}" x2="${x}" y2="${t+h}" class="grid-line-hitbox" /><line x1="${x}" y1="${t}" x2="${x}" y2="${t+h}" class="grid-line" /></g>`;
                 });
-                _0x_state.h_lines['forEach']((p, i) => {
+                _0x_state.h_lines.forEach((p, i) => {
                     const y = t + h * p;
                     htm += `<g class="row-resize" onmousedown="window._0x_start_drag('${i}','h',event)" ontouchstart="window._0x_start_drag('${i}','h',event)"><line x1="${l}" y1="${y}" x2="${l+w}" y2="${y}" class="grid-line-hitbox" /><line x1="${l}" y1="${y}" x2="${l+w}" y2="${y}" class="grid-line" /></g>`;
                 });
-                _0x_el_grid['innerHTML'] = htm;
+                _0x_el_grid.innerHTML = htm;
             }
 
-            _0x_el_grid['addEventListener']('click', (e) => {
+            _0x_el_grid.addEventListener('click', (e) => {
                 if(_0x_state.active_l || !_0x_state.img_obj) return;
-                const r = _0x_el_main['getBoundingClientRect']();
-                const a = _0x_state.img_obj['width'] / _0x_state.img_obj['height'], ra = r['width'] / r['height'];
+                const r = _0x_el_main.getBoundingClientRect();
+                const a = _0x_state.img_obj.width / _0x_state.img_obj.height, ra = r.width / r.height;
                 let aw, ah, ox, oy;
-                if(a > ra){ aw = r['width']; ah = r['width'] / a; ox = 0; oy = (r['height'] - ah) / 2; }
-                else { ah = r['height']; aw = r['height'] * a; oy = 0; ox = (r['width'] - aw) / 2; }
-                const cx = e['clientX'] - r['left'] - ox, cy = e['clientY'] - r['top'] - oy;
+                if(a > ra){ aw = r.width; ah = r.width / a; ox = 0; oy = (r.height - ah) / 2; }
+                else { ah = r.height; aw = r.height * a; oy = 0; ox = (r.width - aw) / 2; }
+                const cx = e.clientX - r.left - ox, cy = e.clientY - r.top - oy;
                 if(cx >= 0 && cx <= aw && cy >= 0 && cy <= ah){
-                    const cv = document['createElement']('canvas');
-                    cv['width'] = _0x_state.img_obj['width']; cv['height'] = _0x_state.img_obj['height'];
-                    const x = cv['getContext']('2d');
-                    x['drawImage'](_0x_state.img_obj, 0, 0);
-                    const p = x['getImageData']((cx / aw) * cv['width'], (cy / ah) * cv['height'], 1, 1)['data'];
+                    const cv = document.createElement('canvas');
+                    cv.width = _0x_state.img_obj.width; cv.height = _0x_state.img_obj.height;
+                    const x = cv.getContext('2d');
+                    x.drawImage(_0x_state.img_obj, 0, 0);
+                    const p = x.getImageData((cx / aw) * cv.width, (cy / ah) * cv.height, 1, 1).data;
                     _0x_state.bg_rgb = {'r':p[0], 'g':p[1], 'b':p[2]};
                     _0x_ui_update_color(p[0], p[1], p[2]);
                     _0x_update_pre();
                 }
             });
 
-            document['getElementById']('range-tolerance')['oninput'] = (e) => {
-                _0x_state.tol = parseInt(e['target']['value']);
-                document['getElementById']('tol-val')['innerText'] = _0x_state.tol;
+            document.getElementById('range-tolerance').oninput = (e) => {
+                _0x_state.tol = parseInt(e.target.value);
+                document.getElementById('tol-val').innerText = _0x_state.tol;
                 _0x_update_pre();
             };
 
-            document['getElementById']('range-expand')['oninput'] = (e) => {
-                _0x_state.expand = parseInt(e['target']['value']);
-                document['getElementById']('exp-val')['innerText'] = _0x_state.expand + ' px';
+            document.getElementById('range-expand').oninput = (e) => {
+                _0x_state.expand = parseInt(e.target.value);
+                document.getElementById('exp-val').innerText = _0x_state.expand + ' px';
                 _0x_update_pre();
             };
 
             function _0x_update_pre(){
                 if(!_0x_state.img_obj) return;
-                const v = [0, ..._0x_state.v_lines, 1]['sort']((a, b) => a - b), h = [0, ..._0x_state.h_lines, 1]['sort']((a, b) => a - b);
-                const sw = (v[1] - v[0]) * _0x_state.img_obj['width'], sh = (h[1] - h[0]) * _0x_state.img_obj['height'];
-                const tmp = document['createElement']('canvas');
-                tmp['width'] = sw; tmp['height'] = sh;
-                const tctx = tmp['getContext']('2d');
-                tctx['drawImage'](_0x_state.img_obj, v[0] * _0x_state.img_obj['width'], h[0] * _0x_state.img_obj['height'], sw, sh, 0, 0, sw, sh);
+                const v = [0, ..._0x_state.v_lines, 1].sort((a, b) => a - b), h = [0, ..._0x_state.h_lines, 1].sort((a, b) => a - b);
+                const sw = (v[1] - v[0]) * _0x_state.img_obj.width, sh = (h[1] - h[0]) * _0x_state.img_obj.height;
+                const tmp = document.createElement('canvas');
+                tmp.width = sw; tmp.height = sh;
+                const tctx = tmp.getContext('2d');
+                tctx.drawImage(_0x_state.img_obj, v[0] * _0x_state.img_obj.width, h[0] * _0x_state.img_obj.height, sw, sh, 0, 0, sw, sh);
                 _0x_apply_alpha(tmp);
                 
-                const mctx = _0x_el_mini['getContext']('2d');
-                mctx['clearRect'](0, 0, 120, 120);
+                const mctx = _0x_el_mini.getContext('2d');
+                mctx.clearRect(0, 0, 120, 120);
                 const fimg = new Image();
-                fimg['onload'] = () => mctx['drawImage'](fimg, 0, 0);
-                fimg['src'] = _0x_smart_fit(tmp, 120, 120);
+                fimg.onload = () => mctx.drawImage(fimg, 0, 0);
+                fimg.src = _0x_smart_fit(tmp, 120, 120);
             }
 
             function _0x_apply_alpha(canv){
-                const ctx = canv['getContext']('2d');
-                const w = canv['width'], h = canv['height'];
-                const d = ctx['getImageData'](0, 0, w, h);
+                const ctx = canv.getContext('2d');
+                const w = canv.width, h = canv.height;
+                const d = ctx.getImageData(0, 0, w, h);
                 const {r, g, b} = _0x_state.bg_rgb;
                 const t = _0x_state.tol;
                 const feather = 10;
                 const alphaMap = new Uint8Array(w * h);
 
-                for(let i=0; i < d['data']['length']; i += 4){
-                    const dr = d['data'][i] - r, dg = d['data'][i+1] - g, db = d['data'][i+2] - b;
+                for(let i=0; i < d.data.length; i += 4){
+                    const dr = d.data[i] - r, dg = d.data[i+1] - g, db = d.data[i+2] - b;
                     const dist = Math.sqrt(dr * dr + dg * dg + db * db);
                     let alpha = 255;
                     if(dist < t) alpha = 0;
                     else if(dist < t + feather) alpha = Math.floor(((dist - t) / feather) * 255);
-                    d['data'][i+3] = alpha;
+                    d.data[i+3] = alpha;
                     alphaMap[i/4] = alpha;
                 }
 
@@ -413,79 +409,80 @@
                             }
                         }
                     }
-                    for(let i=0; i<w*h; i++) d['data'][i*4 + 3] = finalAlpha[i];
+                    for(let i=0; i<w*h; i++) d.data[i*4 + 3] = finalAlpha[i];
                 }
-                ctx['putImageData'](d, 0, 0);
+                ctx.putImageData(d, 0, 0);
             }
 
             function _0x_smart_fit(canv, targetW=320, targetH=320){
-                const ctx = canv['getContext']('2d');
-                const d = ctx['getImageData'](0, 0, canv['width'], canv['height'])['data'];
-                let x0=canv['width'], y0=canv['height'], x1=0, y1=0, f=false;
-                for(let y=0; y < canv['height']; y++){
-                    for(let x=0; x < canv['width']; x++){
-                        if(d[(y * canv['width'] + x) * 4 + 3] > 10){
-                            x0 = Math['min'](x0, x); y0 = Math['min'](y0, y);
-                            x1 = Math['max'](x1, x); y1 = Math['max'](y1, y);
+                const ctx = canv.getContext('2d');
+                const d = ctx.getImageData(0, 0, canv.width, canv.height).data;
+                let x0=canv.width, y0=canv.height, x1=0, y1=0, f=false;
+                for(let y=0; y < canv.height; y++){
+                    for(let x=0; x < canv.width; x++){
+                        if(d[(y * canv.width + x) * 4 + 3] > 10){
+                            x0 = Math.min(x0, x); y0 = Math.min(y0, y);
+                            x1 = Math.max(x1, x); y1 = Math.max(y1, y);
                             f = true;
                         }
                     }
                 }
-                if(!f) return canv['toDataURL']('image/png');
-                const o = document['createElement']('canvas'); o['width'] = targetW; o['height'] = targetH;
-                const oct = o['getContext']('2d');
+                if(!f) return canv.toDataURL('image/png');
+                const o = document.createElement('canvas'); o.width = targetW; o.height = targetH;
+                const oct = o.getContext('2d');
                 const cw = x1 - x0 + 1, ch = y1 - y0 + 1;
-                const sc = Math['min']((targetW * 0.97) / cw, (targetH * 0.97) / ch);
+                const sc = Math.min((targetW * 0.97) / cw, (targetH * 0.97) / ch);
                 const fw = cw * sc, fh = ch * sc;
-                oct['drawImage'](canv, x0, y0, cw, ch, (targetW - fw) / 2, (targetH - fh) / 2, fw, fh);
-                return o['toDataURL']('image/png');
+                oct.drawImage(canv, x0, y0, cw, ch, (targetW - fw) / 2, (targetH - fh) / 2, fw, fh);
+                return o.toDataURL('image/png');
             }
 
-            document['getElementById']('btn-process')['onclick'] = async () => {
+            document.getElementById('btn-process').onclick = async () => {
                 if(_0x_state.busy) return;
                 _0x_state.busy = true;
-                const v = [0, ..._0x_state.v_lines, 1]['sort']((a, b) => a - b), h = [0, ..._0x_state.h_lines, 1]['sort']((a, b) => a - b);
-                _0x_el_list['innerHTML'] = '';
-                document['getElementById']('results-area')['classList']['remove']('hidden');
+                const v = [0, ..._0x_state.v_lines, 1].sort((a, b) => a - b), h = [0, ..._0x_state.h_lines, 1].sort((a, b) => a - b);
+                _0x_el_list.innerHTML = '';
+                document.getElementById('results-area').classList.remove('hidden');
                 for(let r=0; r < _0x_state.rows; r++){
                     for(let c=0; c < _0x_state.cols; c++){
-                        const sw = (v[c+1] - v[c]) * _0x_state.img_obj['width'], sh = (h[r+1] - h[r]) * _0x_state.img_obj['height'];
-                        const cp = document['createElement']('canvas');
-                        cp['width'] = sw; cp['height'] = sh;
-                        cp['getContext']('2d')['drawImage'](_0x_state.img_obj, v[c] * _0x_state.img_obj['width'], h[r] * _0x_state.img_obj['height'], sw, sh, 0, 0, sw, sh);
+                        const sw = (v[c+1] - v[c]) * _0x_state.img_obj.width, sh = (h[r+1] - h[r]) * _0x_state.img_obj.height;
+                        const cp = document.createElement('canvas');
+                        cp.width = sw; cp.height = sh;
+                        cp.getContext('2d').drawImage(_0x_state.img_obj, v[c] * _0x_state.img_obj.width, h[r] * _0x_state.img_obj.height, sw, sh, 0, 0, sw, sh);
                         _0x_apply_alpha(cp);
                         const fu = _0x_smart_fit(cp, _0x_state.out_w, _0x_state.out_h);
-                        const div = document['createElement']('div');
-                        div['className'] = "bg-slate-900 border border-slate-800 rounded-2xl p-3 flex flex-col gap-3 group hover:border-blue-500 transition-all shadow-md";
-                        div['innerHTML'] = `<div class="aspect-square checkerboard rounded-xl flex items-center justify-center p-2 overflow-hidden"><img src="${fu}" class="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform"></div><button onclick="window._0x_dl('${fu}')" class="text-[10px] bg-slate-800 hover:bg-emerald-600 py-2 rounded-lg font-bold transition-colors text-white">下載</button>`;
-                        _0x_el_list['appendChild'](div);
+                        const div = document.createElement('div');
+                        div.className = "bg-slate-900 border border-slate-800 rounded-2xl p-3 flex flex-col gap-3 group hover:border-blue-500 transition-all shadow-md";
+                        div.innerHTML = `<div class="aspect-square checkerboard rounded-xl flex items-center justify-center p-2 overflow-hidden"><img src="${fu}" class="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform"></div><button onclick="window._0x_dl('${fu}')" class="text-[10px] bg-slate-800 hover:bg-emerald-600 py-2 rounded-lg font-bold transition-colors text-white">下載</button>`;
+                        _0x_el_list.appendChild(div);
                     }
                 }
                 _0x_state.busy = false;
-                _0x_el_list['scrollIntoView']({ behavior: 'smooth' });
+                _0x_el_list.scrollIntoView({ behavior: 'smooth' });
             };
 
             window._0x_dl = (u) => {
-                const a = document['createElement']('a'); a['href'] = u; a['download'] = `sticker_${Date['now']()}.png`; a['click']();
+                const a = document.createElement('a'); a.href = u; a.download = `sticker_${Date.now()}.png`; a.click();
             };
 
-            document['getElementById']('btn-download-zip')['onclick'] = async () => {
+            document.getElementById('btn-download-zip').onclick = async () => {
                 const zip = new JSZip();
-                const imgs = _0x_el_list['querySelectorAll']('img');
-                imgs['forEach']((img, i) => zip['file'](`sticker_${i+1}.png`, img['src']['split'](',')[1], {'base64': true}));
-                const a = document['createElement']('a');
-                a['href'] = URL['createObjectURL'](await zip['generateAsync']({'type': "blob"}));
-                a['download'] = 'stickers.zip';
-                a['click']();
+                const imgs = _0x_el_list.querySelectorAll('img');
+                imgs.forEach((img, i) => zip.file(`sticker_${i+1}.png`, img.src.split(',')[1], {'base64': true}));
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(await zip.generateAsync({'type': "blob"}));
+                a.download = 'stickers.zip';
+                a.click();
             };
 
+            // 優化後的反偵測：提高閾值至 500ms
             setInterval(() => {
-                const s = performance['now']();
+                const s = performance.now();
                 (function(){ return false; })['constructor']('debugger')();
-                if(performance['now']() - s > 100) document['getElementById']('security-lock')['classList']['remove']('hidden');
-            }, 1000);
+                if(performance.now() - s > 500) document.getElementById('security-lock').classList.remove('hidden');
+            }, 2000);
 
-            window['onresize'] = _0x_draw_lines;
+            window.onresize = _0x_draw_lines;
         })();
     </script>
 </body>
