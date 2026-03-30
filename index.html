@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- SEO 優化標籤 -->
-    <title>Sticker Studio Pro - 專業 LINE 貼圖裁切與去背工具</title>
+    <title>Sticker Slice Pro - 專業 LINE 貼圖裁切與去背工具</title>
     <meta name="description" content="專業 LINE 貼圖裁切工具，支援智慧去背、精準 3% 邊距設定與自訂尺寸，一鍵匯出符合規範的貼圖格式。所有處理皆在本地端完成，保障您的隱私。">
-    <meta name="keywords" content="貼圖製作, LINE貼圖, 圖片去背, 圖片裁切, Sticker Studio, 去背工具, 透明背景">
+    <meta name="keywords" content="貼圖製作, LINE貼圖, 圖片去背, 圖片裁切, Sticker Slice, 去背工具, 透明背景">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -30,7 +30,6 @@
         <i data-lucide="shield-alert" class="w-20 h-20 text-red-500 mb-6"></i>
         <h2 class="text-3xl font-black text-white mb-2">檢測到非法分析行為</h2>
         <p class="text-slate-400">為了保護智慧財產權，本工具僅限官方網域 (stickerslice.com) 使用且禁止開發者模式。</p>
-        <!-- 修改按鈕文字以辨認版本與修正網域 -->
         <button onclick="location.reload(true)" class="mt-8 bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-xl text-white font-bold transition-all active:scale-95">V1.6.3 授權檢查通過 (點擊重整)</button>
     </div>
 
@@ -43,7 +42,7 @@
         <header class="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 text-white">
             <div>
                 <h1 class="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
-                    Sticker Studio Pro <span class="text-lg opacity-80">V1.6.3</span>
+                    Sticker Slice Pro <span class="text-lg opacity-80">V1.6.3</span>
                 </h1>
                 <p class="text-slate-400 text-sm mt-1">智慧裁切・邊緣羽化・精準去背</p>
             </div>
@@ -170,7 +169,7 @@
                     <div class="space-y-4">
                         <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
                             <h4 class="text-white font-bold text-sm mb-2 flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i> 隱私安全政策</h4>
-                            <p class="text-slate-400 text-[11px] leading-relaxed">Sticker Studio Pro 是一款純前端工具。您的所有圖片處理都在本地瀏覽器內進行，絕不外傳，保證機密安全。</p>
+                            <p class="text-slate-400 text-[11px] leading-relaxed">Sticker Slice Pro 是一款純前端工具。您的所有圖片處理都在本地瀏覽器內進行，絕不外傳，保證機密安全。</p>
                         </div>
                         <div class="space-y-2">
                             <h4 class="text-blue-400 font-bold text-sm">Q：畫面顯示「非法分析」？</h4>
@@ -180,14 +179,14 @@
                 </div>
             </div>
             <div class="text-center text-[10px] text-slate-600 uppercase tracking-widest font-bold">
-                FoxSticker 創作者工具系列 · Sticker Studio Pro V1.6.3
+                FoxSticker 創作者工具系列 · Sticker Slice Pro V1.6.3
             </div>
         </footer>
     </div>
 
     <script>
         (function(_0x_scope, _0x_res){
-            // 修正網域拼字：已補上 stickerslice.com 中的 't'
+            // 授權網域檢查
             const _0x_domain_check = function(){
                 const _0x_host = window.location.hostname.toLowerCase();
                 const _0x_allowed = ['localhost', '127.0.0.1', 'harrychen222.github.io', 'stickerslice.com', 'www.stickerslice.com'];
@@ -479,7 +478,7 @@
                 a['click']();
             };
 
-            // 終極優化：將 debugger 閾值提高到 2000ms
+            // 反偵測
             setInterval(() => {
                 const s = performance.now();
                 (function(){ return false; })['constructor']('debugger')();
