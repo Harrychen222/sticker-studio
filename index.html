@@ -30,7 +30,7 @@
         <i data-lucide="shield-alert" class="w-20 h-20 text-red-500 mb-6"></i>
         <h2 class="text-3xl font-black text-white mb-2">檢測到非法分析行為</h2>
         <p class="text-slate-400">為了保護智慧財產權，本工具僅限官方網域 (stickerslice.com) 使用且禁止開發者模式。</p>
-        <button onclick="location.reload(true)" class="mt-8 bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-xl text-white font-bold transition-all active:scale-95">V1.6.3 授權檢查通過 (點擊重整)</button>
+        <button onclick="location.reload(true)" class="mt-8 bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-xl text-white font-bold transition-all active:scale-95">V1.6.4 授權檢查通過 (點擊重整)</button>
     </div>
 
     <!-- 隱私聲明頂部橫幅 -->
@@ -42,9 +42,9 @@
         <header class="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 text-white">
             <div>
                 <h1 class="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
-                    Sticker Slice Pro <span class="text-lg opacity-80">V1.6.3</span>
+                    Sticker Slice Pro <span class="text-lg opacity-80">V1.6.4</span>
                 </h1>
-                <p class="text-slate-400 text-sm mt-1">智慧裁切・邊緣羽化・精準去背</p>
+                <p class="text-slate-400 text-sm mt-1">智慧裁切・精準去背・邊緣羽化</p>
             </div>
             <div class="flex gap-3">
                 <button onclick="location.reload()" class="text-xs bg-slate-800 hover:bg-slate-700 px-3 py-2 rounded-lg border border-slate-700 transition-all flex items-center gap-2 text-white shadow-md">
@@ -149,7 +149,7 @@
                 <div class="tutorial-card p-6 rounded-3xl">
                     <div class="w-10 h-10 bg-emerald-600/20 rounded-xl flex items-center justify-center mb-4"><i data-lucide="pipette" class="w-6 h-6 text-emerald-400"></i></div>
                     <h3 class="font-bold text-white mb-2 text-lg">2. 智慧去背功能</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">利用吸管選色並調整強度。新增「擴展範圍」，可手動微調去背邊緣收斂程度，搭配邊緣羽化邏輯，讓裁切效果不再生硬。</p>
+                    <p class="text-slate-400 text-sm leading-relaxed">利用吸管選色並調整強度。V1.6.4 優化了隙縫偵測邏輯，建議搭配「擴展範圍」來清除文字內部的微小雜點像素。</p>
                 </div>
                 <div class="tutorial-card p-6 rounded-3xl">
                     <div class="w-10 h-10 bg-purple-600/20 rounded-xl flex items-center justify-center mb-4"><i data-lucide="layout-grid" class="w-6 h-6 text-purple-400"></i></div>
@@ -161,10 +161,10 @@
                 <h3 class="font-bold text-white mb-6 flex items-center gap-2 text-lg"><i data-lucide="info" class="w-5 h-5 text-blue-400"></i> 貼圖製作專業知識</h3>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-6">
                     <div class="space-y-2 text-slate-400 text-xs leading-relaxed">
-                        <h4 class="text-blue-400 font-bold text-sm">什麼是「擴展去背範圍」？</h4>
-                        <p>當背景色與主體邊緣非常接近時，單純的去背往往會留下一層細微的「背景光暈」。透過擴展範圍，系統會將去背範圍向主體內部延伸，強制切除雜邊，讓貼圖更乾淨立體。</p>
+                        <h4 class="text-blue-400 font-bold text-sm">💡 如何清除「隙縫中」的殘留背景？</h4>
+                        <p>若文字孔洞或隙縫去不乾淨：<br>1. 先將「去背強度」提高（建議 40-60 之間）。<br>2. 將「擴展範圍」調至 2-3px。<br>3. 觀察右下角預覽，直到隙縫處呈現透明棋盤格。收縮功能會強制切除隙縫邊緣的模糊像素。</p>
                         <h4 class="text-blue-400 font-bold text-sm" class="mt-4">關於羽化去背 (Feathering)</h4>
-                        <p>一般的去背工具僅進行 0 或 1 的 Alpha 切換，導致鋸齒嚴重。本工具採用漸變演算，在接近背景色的邊緣給予半透明處理，讓貼圖自然融入各種深淺色的對話框。</p>
+                        <p>般的去背工具僅進行 0 或 1 的 Alpha 切換，導致鋸齒嚴重。本工具採用漸變演算，在接近背景色的邊緣給予半透明處理，讓貼圖自然融入各種對話框。</p>
                     </div>
                     <div class="space-y-4">
                         <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
@@ -173,13 +173,13 @@
                         </div>
                         <div class="space-y-2">
                             <h4 class="text-blue-400 font-bold text-sm">Q：畫面顯示「非法分析」？</h4>
-                            <p class="text-slate-400 text-xs leading-relaxed">A：本工具僅授權於官方網域 (stickerslice.com) 運作且禁止開啟 F12 開發者工具。若發生誤鎖，請點擊下方的重整按鈕。</p>
+                            <p class="text-slate-400 text-xs leading-relaxed">A：本工具僅授權於官方網域 (stickerslice.com) 運作。若發生誤鎖，請點擊下方的重整按鈕。</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="text-center text-[10px] text-slate-600 uppercase tracking-widest font-bold">
-                FoxSticker 創作者工具系列 · Sticker Slice Pro V1.6.3
+                FoxSticker 創作者工具系列 · Sticker Slice Pro V1.6.4
             </div>
         </footer>
     </div>
