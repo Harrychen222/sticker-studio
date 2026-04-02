@@ -102,7 +102,556 @@
                             <div class="flex flex-col">
                                 <span class="text-xs text-slate-300 font-bold">背景去色</span>
                                 <span class="text-[10px] text-slate-500" id="hex-label">#FFFFFF</span>
+                            </div><!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO 優化標籤 -->
+    <title>Sticker Slice Pro - 專業 LINE 貼圖裁切與去背工具</title>
+    <meta name="description" content="專業 LINE 貼圖裁切工具，支援智慧去背、精準 3% 邊距設定與自訂尺寸，一鍵匯出符合規範的貼圖格式。所有處理皆在本地端完成，保障您的隱私。">
+    <meta name="keywords" content="貼圖製作, LINE貼圖, 圖片去背, 圖片裁切, Sticker Slice, 去背工具, 透明背景, 貼圖陰影">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        body { font-family: 'Inter', 'Noto Sans TC', sans-serif; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+        .checkerboard { background-image: linear-gradient(45deg, #2d3748 25%, transparent 25%), linear-gradient(-45deg, #2d3748 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #2d3748 75%), linear-gradient(-45deg, transparent 75%, #2d3748 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px; background-color: #1a202c; }
+        .grid-line { stroke: #f43f5e; stroke-width: 2; stroke-dasharray: 4 4; opacity: 0.6; cursor: move; }
+        .grid-line:hover { stroke: #3b82f6; opacity: 1; stroke-dasharray: none; }
+        .grid-line-hitbox { stroke: transparent; stroke-width: 20; cursor: move; } 
+        .col-resize { cursor: ew-resize; } .row-resize { cursor: ns-resize; }
+        input[type=range] { -webkit-appearance: none; background: #334155; height: 6px; border-radius: 5px; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #3b82f6; cursor: pointer; }
+        .tutorial-card { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(51, 65, 85, 0.5); }
+        .toggle-checkbox:checked + .toggle-slot { background-color: #10b981; }
+        .toggle-checkbox:checked + .toggle-slot .toggle-dot { transform: translateX(1.25rem); }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+    <!-- 安全遮罩 -->
+    <div id="security-lock" class="fixed inset-0 bg-slate-950 z-[9999] flex flex-col items-center justify-center hidden p-8 text-center">
+        <i data-lucide="shield-alert" class="w-20 h-20 text-red-500 mb-6"></i>
+        <h2 class="text-3xl font-black text-white mb-2">檢測到非法分析行為</h2>
+        <p class="text-slate-400">為了保護智慧財產權，本工具僅限官方網域 (stickerslice.com) 使用且禁止開發者模式。</p>
+        <button onclick="location.reload(true)" class="mt-8 bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-xl text-white font-bold transition-all active:scale-95">V1.6.6 授權檢查通過 (點擊重整)</button>
+    </div>
+
+    <!-- 隱私聲明頂部橫幅 -->
+    <div class="bg-blue-600/10 border-b border-blue-500/20 text-center py-2 text-[10px] text-blue-300 font-bold uppercase tracking-widest">
+        🔒 隱私保障：所有圖片處理皆在您的瀏覽器本地完成，資料絕不外傳伺服器
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <header class="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 text-white">
+            <div>
+                <h1 class="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
+                    Sticker Slice Pro <span class="text-lg opacity-80">V1.6.6</span>
+                </h1>
+                <p class="text-slate-400 text-sm mt-1">智慧裁切・邊緣羽化・立體陰影</p>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="location.reload()" class="text-xs bg-slate-800 hover:bg-slate-700 px-3 py-2 rounded-lg border border-slate-700 transition-all flex items-center gap-2 text-white shadow-md">
+                    <i data-lucide="refresh-cw" class="w-4 h-4 text-slate-400"></i> 重設全部
+                </button>
+            </div>
+        </header>
+
+        <main class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+            <!-- 左側控制面板 -->
+            <section class="lg:col-span-4 space-y-6">
+                <div id="drop-zone" class="bg-slate-900 border-2 border-dashed border-slate-700 rounded-3xl p-10 text-center hover:border-blue-500 transition-all cursor-pointer group shadow-2xl">
+                    <input type="file" id="file-input" accept="image/*" class="hidden">
+                    <i data-lucide="image-up" class="w-12 h-12 text-slate-500 mx-auto mb-4 group-hover:text-blue-400 transition-colors"></i>
+                    <p class="font-bold text-white text-lg">載入貼圖大圖</p>
+                </div>
+
+                <div id="settings-card" class="bg-slate-900/50 border border-slate-800 rounded-3xl p-6 space-y-6 hidden backdrop-blur-sm shadow-xl text-white overflow-y-auto max-h-[80vh]">
+                    <!-- 網格與尺寸設定 (初始值改為 3x3) -->
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="text-xs text-slate-500 font-bold uppercase tracking-widest text-blue-400">Rows (列)</label>
+                                <input type="number" id="input-rows" value="3" min="1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 outline-none focus:ring-2 ring-blue-500 text-white font-bold">
                             </div>
+                            <div class="space-y-2">
+                                <label class="text-xs text-slate-500 font-bold uppercase tracking-widest text-blue-400">Cols (行)</label>
+                                <input type="number" id="input-cols" value="3" min="1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 outline-none focus:ring-2 ring-blue-500 text-white font-bold">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 pt-2">
+                            <div class="space-y-2">
+                                <label class="text-xs text-slate-500 font-bold uppercase tracking-widest text-emerald-400">寬度 (W)</label>
+                                <div class="relative">
+                                    <input type="number" id="input-out-w" value="320" min="10" max="1024" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 outline-none focus:ring-2 ring-emerald-500 text-white font-bold">
+                                    <span class="absolute right-4 top-2 text-[10px] text-slate-500 uppercase">px</span>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs text-slate-500 font-bold uppercase tracking-widest text-emerald-400">高度 (H)</label>
+                                <div class="relative">
+                                    <input type="number" id="input-out-h" value="320" min="10" max="1024" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 outline-none focus:ring-2 ring-emerald-500 text-white font-bold">
+                                    <span class="absolute right-4 top-2 text-[10px] text-slate-500 uppercase">px</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 去背設定 -->
+                    <div class="pt-4 border-t border-slate-800 space-y-4">
+                        <h3 class="text-[10px] text-slate-500 font-bold uppercase tracking-widest flex items-center gap-2"><i data-lucide="scissors" class="w-3 h-3"></i> 去背與邊緣處理</h3>
+                        <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded-2xl border border-slate-800">
+                            <div class="flex flex-col">
+                                <span class="text-xs text-slate-300 font-bold">背景去色</span>
+                                <span class="text-[10px] text-slate-500" id="hex-label">#FFFFFF</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div id="bg-color-preview" class="w-8 h-8 rounded-full border-2 border-slate-600 shadow-inner" style="background-color: rgb(255, 255, 255);"></div>
+                                <button id="btn-pick-color" class="bg-blue-600 hover:bg-blue-500 p-2 rounded-xl transition-all text-white shadow-lg"><i data-lucide="pipette" class="w-4 h-4"></i></button>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1.5"><span class="text-[11px] text-slate-400 font-bold">去背強度 (容差)</span><span id="tol-val" class="text-xs text-blue-400 font-bold">30</span></div>
+                            <input type="range" id="range-tolerance" min="0" max="150" value="30" class="w-full">
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1.5"><span class="text-[11px] text-slate-400 font-bold">擴展去背 (收縮)</span><span id="exp-val" class="text-xs text-emerald-400 font-bold">1 px</span></div>
+                            <input type="range" id="range-expand" min="0" max="10" value="1" class="w-full">
+                        </div>
+                    </div>
+
+                    <!-- 陰影設定 -->
+                    <div class="pt-4 border-t border-slate-800 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-[10px] text-slate-500 font-bold uppercase tracking-widest flex items-center gap-2"><i data-lucide="layers" class="w-3 h-3"></i> 貼圖陰影效果</h3>
+                            <label class="flex items-center cursor-pointer">
+                                <input type="checkbox" id="shadow-toggle" class="sr-only toggle-checkbox">
+                                <div class="toggle-slot w-9 h-5 bg-slate-700 rounded-full p-1 transition-colors duration-200">
+                                    <div class="toggle-dot w-3 h-3 bg-white rounded-full shadow-md transition-transform duration-200"></div>
+                                </div>
+                            </label>
+                        </div>
+                        <div id="shadow-controls" class="space-y-4 opacity-40 pointer-events-none transition-opacity">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <div class="flex justify-between mb-1.5"><span class="text-[10px] text-slate-400 font-bold">偏移 X</span><span id="shadow-x-val" class="text-[10px] text-purple-400 font-bold">2 px</span></div>
+                                    <input type="range" id="shadow-offset-x" min="-20" max="20" value="2" class="w-full">
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1.5"><span class="text-[10px] text-slate-400 font-bold">偏移 Y</span><span id="shadow-y-val" class="text-[10px] text-purple-400 font-bold">2 px</span></div>
+                                    <input type="range" id="shadow-offset-y" min="-20" max="20" value="2" class="w-full">
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1.5"><span class="text-[10px] text-slate-400 font-bold">邊緣模糊</span><span id="shadow-blur-val" class="text-[10px] text-purple-400 font-bold">5 px</span></div>
+                                <input type="range" id="shadow-blur" min="0" max="30" value="5" class="w-full">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="btn-process" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white py-4 rounded-2xl font-bold shadow-xl shadow-blue-900/20 flex items-center justify-center gap-2 transition-transform active:scale-95"><i data-lucide="zap" class="w-5 h-5"></i> 執行智慧裁切</button>
+                    <button id="btn-change-img" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 py-3 rounded-2xl font-semibold text-sm transition-all flex items-center justify-center gap-2 text-white">更換圖片</button>
+                </div>
+            </section>
+
+            <!-- 畫布與結果區 -->
+            <section class="lg:col-span-8 flex flex-col gap-6">
+                <div id="canvas-container" class="relative bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden flex flex-col hidden h-[600px] shadow-2xl">
+                    <div class="flex-1 relative overflow-hidden flex items-center justify-center checkerboard" id="canvas-viewport">
+                        <img id="main-image" class="max-w-full max-h-full object-contain pointer-events-none select-none opacity-0 transition-opacity duration-500">
+                        <svg id="grid-overlay" class="absolute inset-0 w-full h-full cursor-crosshair z-10"></svg>
+                    </div>
+                    <div class="absolute bottom-4 right-4 z-20"><div class="bg-slate-900/90 backdrop-blur-md p-2.5 rounded-2xl border border-slate-700 shadow-2xl ring-1 ring-white/5"><canvas id="preview-canvas-mini" width="120" height="120" class="rounded-xl checkerboard shadow-inner"></canvas></div></div>
+                </div>
+                <div id="results-area" class="space-y-4 hidden">
+                    <div class="flex items-center justify-between px-2 text-white"><h2 class="text-lg font-bold flex items-center gap-2">輸出結果</h2><button id="btn-download-zip" class="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2 rounded-xl font-bold text-sm flex items-center gap-2 shadow-lg shadow-emerald-900/20 transition-all"><i data-lucide="download" class="w-4 h-4"></i> 下載 ZIP</button></div>
+                    <div id="sticker-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4"></div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="space-y-12 border-t border-slate-800 pt-12 pb-20">
+            <div class="text-center">
+                <h2 class="text-2xl font-black text-white mb-2">🦊 使用指南與教學</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="tutorial-card p-6 rounded-3xl">
+                    <div class="w-10 h-10 bg-blue-600/20 rounded-xl flex items-center justify-center mb-4"><i data-lucide="image" class="w-6 h-6 text-blue-400"></i></div>
+                    <h3 class="font-bold text-white mb-2 text-lg">1. 載入與設定網格</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">點擊上方載入貼圖大圖。預設開啟 3x3 網格，可拖動紅色虛線調整位置。您可以設定任意輸出寬高（如 320x320）。</p>
+                </div>
+                <div class="tutorial-card p-6 rounded-3xl">
+                    <div class="w-10 h-10 bg-emerald-600/20 rounded-xl flex items-center justify-center mb-4"><i data-lucide="pipette" class="w-6 h-6 text-emerald-400"></i></div>
+                    <h3 class="font-bold text-white mb-2 text-lg">2. 智慧去背優化</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">利用吸管選色。若隙縫去不乾淨，可增加「去背強度」並將「擴展範圍」調至 2-3px，系統會自動強制收縮邊緣雜色像素。</p>
+                </div>
+                <div class="tutorial-card p-6 rounded-3xl">
+                    <div class="w-10 h-10 bg-purple-600/20 rounded-xl flex items-center justify-center mb-4"><i data-lucide="layers" class="w-6 h-6 text-purple-400"></i></div>
+                    <h3 class="font-bold text-white mb-2 text-lg">3. 立體陰影效果</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">開啟陰影開關，可調整 X/Y 偏移量及模糊度。陰影能讓貼圖在任何背景上都清晰可見，並增加專業的手繪層次感。</p>
+                </div>
+            </div>
+            <div class="bg-slate-900/40 border border-slate-800 p-8 rounded-3xl">
+                <h3 class="font-bold text-white mb-6 flex items-center gap-2 text-lg"><i data-lucide="info" class="w-5 h-5 text-blue-400"></i> 貼圖製作專業知識</h3>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-6">
+                    <div class="space-y-2 text-slate-400 text-xs leading-relaxed">
+                        <h4 class="text-blue-400 font-bold text-sm">💡 陰影位置的建議設定</h4>
+                        <p>一般建議將 Offset X 設為 2，Offset Y 設為 2，Blur 設為 5。這樣的「右下角投影」最符合人類視覺對自然光源的認知，能讓貼圖看起來像是在對話框上漂浮。</p>
+                        <h4 class="text-blue-400 font-bold text-sm" class="mt-4">關於羽化去背 (Feathering)</h4>
+                        <p>本工具採用漸變演算，在接近背景色的邊緣給予半透明處理。若同時開啟陰影，羽化邊緣會與陰影更加融合，消除生硬的白邊或黑邊。</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
+                            <h4 class="text-white font-bold text-sm mb-2 flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i> 隱私安全政策</h4>
+                            <p class="text-slate-400 text-[11px] leading-relaxed">Sticker Slice Pro 是一款純前端工具。您的所有圖片處理都在本地瀏覽器內進行，絕不外傳，保證機密安全。</p>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="text-blue-400 font-bold text-sm">Q：為什麼陰影有時候會被切斷？</h4>
+                            <p class="text-slate-400 text-xs leading-relaxed">A：若陰影偏移量過大（超過 15px），可能會超出 3% 的安全邊距。建議調整貼圖內容的大小或減小偏移量。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center text-[10px] text-slate-600 uppercase tracking-widest font-bold">
+                FoxSticker 創作者工具系列 · Sticker Slice Pro V1.6.6
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        (function(_0x_scope, _0x_res){
+            const _0x_domain_check = function(){
+                const _0x_host = window.location.hostname.toLowerCase();
+                const _0x_allowed = ['localhost', '127.0.0.1', 'harrychen222.github.io', 'stickerslice.com', 'www.stickerslice.com'];
+                const is_auth = _0x_allowed.some(domain => _0x_host === domain || _0x_host.endsWith('.' + domain));
+                const is_goog = _0x_host.endsWith('.goog'); 
+
+                if(!is_auth && !is_goog){
+                    document.getElementById('security-lock').classList.remove('hidden');
+                    return false;
+                }
+                return true;
+            };
+            if(!_0x_domain_check()) return;
+
+            lucide.createIcons();
+            // 更新狀態預設值：rows:3, cols:3
+            let _0x_state={img_obj:null,rows:3,cols:3,out_w:320,out_h:320,h_lines:[0.33,0.66],v_lines:[0.33,0.66],active_l:null,bg_rgb:{'r':255,'g':255,'b':255},tol:30,expand:1,shadow_en:false,shadow_x:2,shadow_y:2,shadow_b:5,busy:false};
+            
+            const _0x_el_file = document.getElementById('file-input');
+            const _0x_el_main = document.getElementById('main-image');
+            const _0x_el_grid = document.getElementById('grid-overlay');
+            const _0x_el_mini = document.getElementById('preview-canvas-mini');
+            const _0x_el_list = document.getElementById('sticker-grid');
+            const _0x_el_card = document.getElementById('settings-card');
+            const _0x_el_box = document.getElementById('canvas-container');
+            const _0x_el_out_w = document.getElementById('input-out-w');
+            const _0x_el_out_h = document.getElementById('input-out-h');
+
+            const _0x_el_sh_en = document.getElementById('shadow-toggle');
+            const _0x_el_sh_box = document.getElementById('shadow-controls');
+            const _0x_el_sh_x = document.getElementById('shadow-offset-x');
+            const _0x_el_sh_y = document.getElementById('shadow-offset-y');
+            const _0x_el_sh_b = document.getElementById('shadow-blur');
+
+            document.getElementById('drop-zone').onclick = () => _0x_el_file.click();
+            document.getElementById('btn-change-img').onclick = () => _0x_el_file.click();
+
+            _0x_el_file.onchange = (e) => {
+                const f = e.target.files[0];
+                if(f){
+                    const r = new FileReader();
+                    r.onload = (ev) => {
+                        const i = new Image();
+                        i.onload = () => {
+                            _0x_state.img_obj = i;
+                            _0x_el_main.src = ev.target.result;
+                            _0x_el_main.classList.remove('opacity-0');
+                            document.getElementById('drop-zone').classList.add('hidden');
+                            _0x_el_card.classList.remove('hidden');
+                            _0x_el_box.classList.remove('hidden');
+                            _0x_reset_grid(); 
+                            _0x_auto_detect(i);
+                            _0x_update_pre();
+                        };
+                        i.src = ev.target.result;
+                    };
+                    r.readAsDataURL(f);
+                }
+                e.target.value = '';
+            };
+
+            function _0x_auto_detect(img){
+                const c = document.createElement('canvas');
+                c.width = img.width; c.height = img.height;
+                const x = c.getContext('2d');
+                x.drawImage(img, 0, 0);
+                const p = x.getImageData(5, 5, 1, 1).data;
+                _0x_state.bg_rgb = {'r':p[0], 'g':p[1], 'b':p[2]};
+                _0x_ui_update_color(p[0], p[1], p[2]);
+            }
+
+            function _0x_ui_update_color(r, g, b){
+                const h = '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+                document.getElementById('bg-color-preview').style.backgroundColor = `rgb(${r},${g},${b})`;
+                document.getElementById('hex-label').innerText = h;
+            }
+
+            function _0x_reset_grid(){
+                _0x_state.rows = parseInt(document.getElementById('input-rows').value) || 3;
+                _0x_state.cols = parseInt(document.getElementById('input-cols').value) || 3;
+                _0x_state.out_w = parseInt(_0x_el_out_w.value) || 320;
+                _0x_state.out_h = parseInt(_0x_el_out_h.value) || 320;
+                _0x_state.h_lines = []; _0x_state.v_lines = [];
+                for(let i=1; i < _0x_state.rows; i++) _0x_state.h_lines.push(i / _0x_state.rows);
+                for(let i=1; i < _0x_state.cols; i++) _0x_state.v_lines.push(i / _0x_state.cols);
+                _0x_draw_lines();
+            }
+
+            document.getElementById('input-rows').onchange = _0x_reset_grid;
+            document.getElementById('input-cols').onchange = _0x_reset_grid;
+            _0x_el_out_w.onchange = () => { _0x_state.out_w = parseInt(_0x_el_out_w.value) || 320; _0x_update_pre(); };
+            _0x_el_out_h.onchange = () => { _0x_state.out_h = parseInt(_0x_el_out_h.value) || 320; _0x_update_pre(); };
+
+            _0x_el_sh_en.onchange = (e) => {
+                _0x_state.shadow_en = e.target.checked;
+                _0x_el_sh_box.style.opacity = _0x_state.shadow_en ? "1" : "0.4";
+                _0x_el_sh_box.style.pointerEvents = _0x_state.shadow_en ? "auto" : "none";
+                _0x_update_pre();
+            };
+            _0x_el_sh_x.oninput = (e) => { _0x_state.shadow_x = parseInt(e.target.value); document.getElementById('shadow-x-val').innerText = e.target.value + ' px'; _0x_update_pre(); };
+            _0x_el_sh_y.oninput = (e) => { _0x_state.shadow_y = parseInt(e.target.value); document.getElementById('shadow-y-val').innerText = e.target.value + ' px'; _0x_update_pre(); };
+            _0x_el_sh_b.oninput = (e) => { _0x_state.shadow_b = parseInt(e.target.value); document.getElementById('shadow-blur-val').innerText = e.target.value + ' px'; _0x_update_pre(); };
+
+            window._0x_start_drag = (idx, type, ev) => {
+                ev.preventDefault();
+                ev.stopPropagation();
+                _0x_state.active_l = {'t':type, 'i':idx};
+                const moveEv = ev.type.startsWith('touch') ? 'touchmove' : 'mousemove';
+                const endEv = ev.type.startsWith('touch') ? 'touchend' : 'mouseup';
+                document.addEventListener(moveEv, _0x_moving, {passive: false});
+                document.addEventListener(endEv, _0x_stop_drag);
+            };
+
+            const _0x_moving = (e) => {
+                if(!_0x_state.active_l) return;
+                const r = _0x_el_main.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                const v = Math.max(0.01, Math.min(0.99, _0x_state.active_l.t === 'v' ? (clientX - r.left) / r.width : (clientY - r.top) / r.height));
+                if(_0x_state.active_l.t === 'v'){
+                    _0x_state.v_lines[_0x_state.active_l.i] = v;
+                    _0x_state.v_lines.sort((a, b) => a - b);
+                } else {
+                    _0x_state.h_lines[_0x_state.active_l.i] = v;
+                    _0x_state.h_lines.sort((a, b) => a - b);
+                }
+                _0x_draw_lines();
+                _0x_update_pre();
+            };
+
+            const _0x_stop_drag = () => {
+                _0x_state.active_l = null;
+                document.removeEventListener('mousemove', _0x_moving);
+                document.removeEventListener('touchmove', _0x_moving);
+                document.removeEventListener('mouseup', _0x_stop_drag);
+                document.removeEventListener('touchend', _0x_stop_drag);
+            };
+
+            function _0x_draw_lines(){
+                if(!_0x_state.img_obj) return;
+                const w = _0x_el_main.clientWidth, h = _0x_el_main.clientHeight, l = _0x_el_main.offsetLeft, t = _0x_el_main.offsetTop;
+                let htm = '';
+                _0x_state.v_lines.forEach((p, i) => {
+                    const x = l + w * p;
+                    htm += `<g class="col-resize" onmousedown="window._0x_start_drag('${i}','v',event)" ontouchstart="window._0x_start_drag('${i}','v',event)"><line x1="${x}" y1="${t}" x2="${x}" y2="${t+h}" class="grid-line-hitbox" /><line x1="${x}" y1="${t}" x2="${x}" y2="${t+h}" class="grid-line" /></g>`;
+                });
+                _0x_state.h_lines.forEach((p, i) => {
+                    const y = t + h * p;
+                    htm += `<g class="row-resize" onmousedown="window._0x_start_drag('${i}','h',event)" ontouchstart="window._0x_start_drag('${i}','h',event)"><line x1="${l}" y1="${y}" x2="${l+w}" y2="${y}" class="grid-line-hitbox" /><line x1="${l}" y1="${y}" x2="${l+w}" y2="${y}" class="grid-line" /></g>`;
+                });
+                _0x_el_grid.innerHTML = htm;
+            }
+
+            _0x_el_grid.addEventListener('click', (e) => {
+                if(_0x_state.active_l || !_0x_state.img_obj) return;
+                const r = _0x_el_main.getBoundingClientRect();
+                const a = _0x_state.img_obj.width / _0x_state.img_obj.height, ra = r.width / r.height;
+                let aw, ah, ox, oy;
+                if(a > ra){ aw = r.width; ah = r.width / a; ox = 0; oy = (r.height - ah) / 2; }
+                else { ah = r.height; aw = r.height * a; oy = 0; ox = (r.width - aw) / 2; }
+                const cx = e.clientX - r.left - ox, cy = e.clientY - r.top - oy;
+                if(cx >= 0 && cx <= aw && cy >= 0 && cy <= ah){
+                    const cv = document.createElement('canvas');
+                    cv.width = _0x_state.img_obj.width; cv.height = _0x_state.img_obj.height;
+                    const x = cv.getContext('2d');
+                    x.drawImage(_0x_state.img_obj, 0, 0);
+                    const p = x.getImageData((cx / aw) * cv.width, (cy / ah) * cv.height, 1, 1).data;
+                    _0x_state.bg_rgb = {'r':p[0], 'g':p[1], 'b':p[2]};
+                    _0x_ui_update_color(p[0], p[1], p[2]);
+                    _0x_update_pre();
+                }
+            });
+
+            document.getElementById('range-tolerance').oninput = (e) => {
+                _0x_state.tol = parseInt(e.target.value);
+                document.getElementById('tol-val').innerText = _0x_state.tol;
+                _0x_update_pre();
+            };
+
+            document.getElementById('range-expand').oninput = (e) => {
+                _0x_state.expand = parseInt(e.target.value);
+                document.getElementById('exp-val').innerText = _0x_state.expand + ' px';
+                _0x_update_pre();
+            };
+
+            function _0x_update_pre(){
+                if(!_0x_state.img_obj) return;
+                const v = [0, ..._0x_state.v_lines, 1].sort((a, b) => a - b), h = [0, ..._0x_state.h_lines, 1].sort((a, b) => a - b);
+                const sw = (v[1] - v[0]) * _0x_state.img_obj.width, sh = (h[1] - h[0]) * _0x_state.img_obj.height;
+                const tmp = document.createElement('canvas');
+                tmp.width = sw; tmp.height = sh;
+                const tctx = tmp.getContext('2d');
+                tctx.drawImage(_0x_state.img_obj, v[0] * _0x_state.img_obj.width, h[0] * _0x_state.img_obj.height, sw, sh, 0, 0, sw, sh);
+                _0x_apply_alpha(tmp);
+                
+                const mctx = _0x_el_mini.getContext('2d');
+                mctx.clearRect(0, 0, 120, 120);
+                const fimg = new Image();
+                fimg.onload = () => mctx.drawImage(fimg, 0, 0);
+                fimg.src = _0x_smart_fit(tmp, 120, 120);
+            }
+
+            function _0x_apply_alpha(canv){
+                const ctx = canv.getContext('2d');
+                const w = canv.width, h = canv.height;
+                const d = ctx.getImageData(0, 0, w, h);
+                const {r, g, b} = _0x_state.bg_rgb;
+                const t = _0x_state.tol;
+                const feather = 10;
+                const alphaMap = new Uint8Array(w * h);
+
+                for(let i=0; i < d.data.length; i += 4){
+                    const dr = d.data[i] - r, dg = d.data[i+1] - g, db = d.data[i+2] - b;
+                    const dist = Math.sqrt(dr * dr + dg * dg + db * db);
+                    let alpha = 255;
+                    if(dist < t) alpha = 0;
+                    else if(dist < t + feather) alpha = Math.floor(((dist - t) / feather) * 255);
+                    d.data[i+3] = alpha;
+                    alphaMap[i/4] = alpha;
+                }
+
+                if(_0x_state.expand > 0){
+                    const finalAlpha = new Uint8Array(alphaMap);
+                    const radius = _0x_state.expand;
+                    for(let y=0; y<h; y++){
+                        for(let x=0; x<w; x++){
+                            if(alphaMap[y * w + x] > 10){
+                                let minAlpha = 255;
+                                search: for(let dy=-radius; dy<=radius; dy++){
+                                    for(let dx=-radius; dx<=radius; dx++){
+                                        const ny = y + dy, nx = x + dx;
+                                        if(ny>=0 && ny<h && nx>=0 && nx<w){
+                                            minAlpha = Math.min(minAlpha, alphaMap[ny * w + nx]);
+                                            if(minAlpha === 0) break search;
+                                        }
+                                    }
+                                }
+                                finalAlpha[y * w + x] = minAlpha;
+                            }
+                        }
+                    }
+                    for(let i=0; i<w*h; i++) d.data[i*4 + 3] = finalAlpha[i];
+                }
+                ctx.putImageData(d, 0, 0);
+            }
+
+            function _0x_smart_fit(canv, targetW=320, targetH=320){
+                const ctx = canv.getContext('2d');
+                const d = ctx.getImageData(0, 0, canv.width, canv.height).data;
+                let x0=canv.width, y0=canv.height, x1=0, y1=0, f=false;
+                for(let y=0; y < canv.height; y++){
+                    for(let x=0; x < canv.width; x++){
+                        if(d[(y * canv.width + x) * 4 + 3] > 10){
+                            x0 = Math.min(x0, x); y0 = Math.min(y0, y);
+                            x1 = Math.max(x1, x); y1 = Math.max(y1, y);
+                            f = true;
+                        }
+                    }
+                }
+                if(!f) return canv.toDataURL('image/png');
+                const o = document.createElement('canvas'); o.width = targetW; o.height = targetH;
+                const oct = o.getContext('2d');
+                const cw = x1 - x0 + 1, ch = y1 - y0 + 1;
+                const sc = Math.min((targetW * 0.97) / cw, (targetH * 0.97) / ch);
+                const fw = cw * sc, fh = ch * sc;
+                const px = (targetW - fw) / 2, py = (targetH - fh) / 2;
+
+                if(_0x_state.shadow_en){
+                    oct.shadowColor = 'rgba(0, 0, 0, 0.5)';
+                    oct.shadowBlur = _0x_state.shadow_b;
+                    oct.shadowOffsetX = _0x_state.shadow_x;
+                    oct.shadowOffsetY = _0x_state.shadow_y;
+                }
+                oct.drawImage(canv, x0, y0, cw, ch, px, py, fw, fh);
+                oct.shadowColor = 'transparent';
+                oct.shadowBlur = 0;
+                oct.shadowOffsetX = 0;
+                oct.shadowOffsetY = 0;
+                return o.toDataURL('image/png');
+            }
+
+            document.getElementById('btn-process').onclick = async () => {
+                if(_0x_state.busy) return;
+                _0x_state.busy = true;
+                const v = [0, ..._0x_state.v_lines, 1].sort((a, b) => a - b), h = [0, ..._0x_state.h_lines, 1].sort((a, b) => a - b);
+                _0x_el_list.innerHTML = '';
+                document.getElementById('results-area').classList.remove('hidden');
+                for(let r=0; r < _0x_state.rows; r++){
+                    for(let c=0; c < _0x_state.cols; c++){
+                        const sw = (v[c+1] - v[c]) * _0x_state.img_obj.width, sh = (h[r+1] - h[r]) * _0x_state.img_obj.height;
+                        const cp = document.createElement('canvas');
+                        cp.width = sw; cp.height = sh;
+                        cp.getContext('2d').drawImage(_0x_state.img_obj, v[c] * _0x_state.img_obj.width, h[r] * _0x_state.img_obj.height, sw, sh, 0, 0, sw, sh);
+                        _0x_apply_alpha(cp);
+                        const fu = _0x_smart_fit(cp, _0x_state.out_w, _0x_state.out_h);
+                        const div = document.createElement('div');
+                        div.className = "bg-slate-900 border border-slate-800 rounded-2xl p-3 flex flex-col gap-3 group hover:border-blue-500 transition-all shadow-md";
+                        div.innerHTML = `<div class="aspect-square checkerboard rounded-xl flex items-center justify-center p-2 overflow-hidden"><img src="${fu}" class="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform"></div><button onclick="window._0x_dl('${fu}')" class="text-[10px] bg-slate-800 hover:bg-emerald-600 py-2 rounded-lg font-bold transition-colors text-white">下載</button>`;
+                        _0x_el_list.appendChild(div);
+                    }
+                }
+                _0x_state.busy = false;
+                _0x_el_list.scrollIntoView({ behavior: 'smooth' });
+            };
+
+            window._0x_dl = (u) => {
+                const a = document.createElement('a'); a.href = u; a.download = `sticker_${Date.now()}.png`; a.click();
+            };
+
+            document.getElementById('btn-download-zip').onclick = async () => {
+                const zip = new JSZip();
+                const imgs = _0x_el_list.querySelectorAll('img');
+                imgs.forEach((img, i) => zip.file(`sticker_${i+1}.png`, img.src.split(',')[1], {'base64': true}));
+                const a = document.createElement('a');
+                a['href'] = URL.createObjectURL(await zip.generateAsync({'type': "blob"}));
+                a['download'] = 'stickers.zip';
+                a['click']();
+            };
+
+            setInterval(() => {
+                const s = performance.now();
+                (function(){ return false; })['constructor']('debugger')();
+                if(performance.now() - s > 2000) document.getElementById('security-lock').classList.remove('hidden');
+            }, 4000);
+
+            window.onresize = _0x_draw_lines;
+        })();
+    </script>
+</body>
+</html>
                             <div class="flex items-center gap-3">
                                 <div id="bg-color-preview" class="w-8 h-8 rounded-full border-2 border-slate-600 shadow-inner" style="background-color: rgb(255, 255, 255);"></div>
                                 <button id="btn-pick-color" class="bg-blue-600 hover:bg-blue-500 p-2 rounded-xl transition-all text-white shadow-lg"><i data-lucide="pipette" class="w-4 h-4"></i></button>
